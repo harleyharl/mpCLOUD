@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # resources :soundkits
+  # resources :recordings
+  # resources :users
+  scope '/api' do
+    get :soundkits, to: 'soundkits#index'
+    get :recordings, to: 'recordings#index'
+  end
 end
