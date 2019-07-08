@@ -1,3 +1,4 @@
 class SoundkitSerializer < ActiveModel::Serializer
-  attributes :url, :name
+  attributes :id, :url, :name
+  has_many :sounds
 end
