@@ -21,6 +21,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers'
 
 gem 'pry'
+
+gem 'hirb'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
