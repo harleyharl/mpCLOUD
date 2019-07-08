@@ -1,8 +1,29 @@
 class SoundkitsController < ApplicationController
   def index
-    #change to use session!
-    @user = User.find_by(id: 1)
-    @soundkits = @user.soundkits
+    @soundkits = Soundkit.all
     render json: @soundkits, status: 200
   end
+
+  def show
+    id = params[:id]
+    render(
+      status: 200,
+      json: Soundkit.where(id: id)
+    )
+  end
+
 end
+
+# filter example
+  # def index
+  #   q = params[:q]
+  #
+  #   if q.blank?
+  #     render status: 400, json: { error: 'Expected parameter `q` '}
+  #   else
+  #     render(
+  #       status: 200,
+  #       json: Food.where(["description LIKE ?", "%#{q}%"]).limit(100)
+  #     )
+  #   end
+  # end
