@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       user: '',
       soundKits: [],
-      currentSoundkit: [],
+      currentSoundkit: null,
       recordings: []
     }
   }
@@ -23,11 +23,17 @@ class App extends Component {
     this.setState({
       soundKits: soundKits,
     })
-  }
+  } // pretty sure i don't need this here
 
   // renderPadContainer = () => {
   //   <PadContainer currentSoundkit={this.props.currentSoundkit}/>
   // }
+
+  renderPadContainer = () => (
+
+    this.props.soundKits.currentSoundkit ? <PadContainer sounds={this.props.soundKits.currentSoundkit.sounds} /> : "select a soundkit to load up the pads"
+    // renderSoundkitSelector = () => this.props.soundKits.soundKits.map((soundkit) => <option key={soundkit.id} value={soundkit.id}>{soundkit.name}</option>)
+)
 
   handleOnChange = event => {
     this.setState({
@@ -39,7 +45,7 @@ class App extends Component {
     return (
       <div className="App">
         <SoundKitContainer onChange={this.handleOnChange} soundKits={this.props.soundKits}/>
-        <PadContainer currentSoundkit={this.props.currentSoundkit}/>
+        {this.renderPadContainer()}
       </div>
     );
   }
