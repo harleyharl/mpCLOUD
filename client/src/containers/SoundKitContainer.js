@@ -22,12 +22,11 @@ class SoundKitContainer extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    alert("you have selected "+ this.state.currentSoundkit) //"you have selected "15""
+    //at this point this.state.currentSoundkit is a string number e.g. "15"
     // const sounds = this.props.fetchSounds(this.state.currentSoundkit) //fetches the sounds from the soundkit
     var soundkit_id = parseInt(this.state.currentSoundkit) // why doesn't const work here??
     var soundkit = this.props.soundKits.soundKits[soundkit_id - 1]
-    this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store 
-    debugger
+    this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
     // this.props.renderPadContainer() // need this to trigger the rendering of the pad container
   }
 
