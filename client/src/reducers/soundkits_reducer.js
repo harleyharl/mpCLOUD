@@ -16,7 +16,6 @@ export default function soundkitsReducer(state = {
     return {...state, loading:true}
 
     case 'SET_CURRENT_SOUNDKIT':
-    debugger
     return { ...state, currentSoundkit: action.payload, loading: false }
 
   default:
