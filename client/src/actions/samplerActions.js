@@ -17,7 +17,6 @@ export function fetchSounds(soundkit_id) {
 }
 
 export function setCurrentSoundkit(soundkit) {
-  // soundkit comes in here undefined
   return (dispatch) => {
     dispatch({ type: 'SET_CURRENT_SOUNDKIT', payload: soundkit })
   };
