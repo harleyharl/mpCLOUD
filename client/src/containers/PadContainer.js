@@ -12,8 +12,6 @@ class PadContainer extends Component {
   }
 
   componentDidUpdate(){
-    // const soundkit = this.props.currentSoundkit
-    debugger
     const sounds = this.props.soundKits.currentSoundkit
     this.setState({
       currentSoundkit: sounds
@@ -23,7 +21,6 @@ class PadContainer extends Component {
   render() {
     return (
       <div>
-        pad container. render drum pads here
         <Pads sounds={this.props.sounds}/>
       </div>
     );
