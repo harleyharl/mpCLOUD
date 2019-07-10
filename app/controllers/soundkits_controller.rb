@@ -5,6 +5,12 @@ class SoundkitsController < ApplicationController
   end
 
   def show
+
+    # id = params[:id]
+    # @soundkit = Soundkit.where(id:id)
+    #
+    # @soundkit.attach(io: File.open('../client/src/public'), filename: sound.name)
+
     id = params[:id]
     render(
       status: 200,
