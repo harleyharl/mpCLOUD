@@ -17,17 +17,12 @@ class Pad extends Component {
   }
 
   render() {
-    const audio = new Audio('./public/Snap.wav')
     return (
       <div>
         <button onClick={this.play} class="pad" type="button" key={this.props.id} src={this.props.url}>
           <p className="padText">{this.props.name}</p>
-          <Sound playStatus={this.state.playStatus} url={'https://mpcloud.s3-us-west-1.amazonaws.com/MM_-_METAL_SNARE_-_C%23M.wav'} />
+          <Sound playStatus={this.state.playStatus} url={this.props.url} />
         </button>
-
-        <button onClick={audio.play()}>
-        </button>
-
       </div>
     );
   }
