@@ -20,6 +20,9 @@ class SoundkitsController < ApplicationController
 
 end
 
+def create
+end 
+
 # filter example
   # def index
   #   q = params[:q]
