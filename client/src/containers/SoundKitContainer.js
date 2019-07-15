@@ -22,8 +22,7 @@ class SoundKitContainer extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    //at this point this.state.currentSoundkit is a string number e.g. "15"
-    // const sounds = this.props.fetchSounds(this.state.currentSoundkit) //fetches the sounds from the soundkit
+    debugger
     var soundkit_id = parseInt(this.state.currentSoundkit) // why doesn't const work here??
     var soundkit = this.props.soundKits.soundKits[soundkit_id - 1]
     this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
@@ -36,8 +35,8 @@ class SoundKitContainer extends Component {
       <div>
       <form onSubmit={event => this.handleSubmit(event)}>
         <label>
-          Pick your soundkit:
           <select value={this.state.value} onChange={event => this.handleChange(event)}>
+          <option disabled selected value> -- select your soundkit -- </option>
             {this.renderSoundkitSelector()}
           </select>
         </label>
