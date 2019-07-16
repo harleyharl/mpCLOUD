@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     get :soundkits, to: 'soundkits#index'
     get :recordings, to: 'recordings#index'
     get ':soundkits/:id', to: 'soundkits#show'
+    post :soundkits, to: 'soundkits#create'
   end
 end
