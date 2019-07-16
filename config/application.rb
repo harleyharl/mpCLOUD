@@ -31,5 +31,17 @@ module MpCLOUDApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+
+    # allow the whilelisted domain to send request across. change to localhost to make private
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+                 headers: :any,
+                 methods: %I[get post options delete patch puts]
+      end
+    end
+
   end
 end
