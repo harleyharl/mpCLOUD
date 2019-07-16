@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+# lets the request call from cross domain
+gem 'rack-cors'
+
 gem 'foreman', '~> 0.82.0'
 
 ruby '2.3.3'
