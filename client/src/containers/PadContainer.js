@@ -12,7 +12,8 @@ class PadContainer extends Component {
   }
 
   componentDidUpdate(){
-    const sounds = this.props.soundKits.currentSoundkit
+    // debugger
+    const sounds = this.props.sounds
     this.setState({
       currentSoundkit: sounds
     })
