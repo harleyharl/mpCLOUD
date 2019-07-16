@@ -16,7 +16,7 @@ class Soundkit < ApplicationRecord
       errors: errors,
       sounds: sounds.map do |s|
         {
-          url: s.sound.url.absolute_url,
+          url: s.url,
           name: s.sound_file_name,
           id: s.id
         }
