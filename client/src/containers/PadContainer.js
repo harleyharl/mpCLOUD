@@ -11,13 +11,13 @@ class PadContainer extends Component {
     }
   }
 
-  componentDidUpdate(){
-    // debugger
-    const sounds = this.props.sounds
-    this.setState({
-      currentSoundkit: sounds
-    })
-  }
+  // componentDidUpdate(){
+  //   // debugger
+  //   const sounds = this.props.sounds
+  //   this.setState({
+  //     currentSoundkit: sounds
+  //   })
+  // }
 
   render() {
     return (
