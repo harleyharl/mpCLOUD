@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axiosClient from '../../../axiosClient';
+import { connect } from 'react-redux'
+
 
 class SoundkitIndex extends Component {
   constructor(props) {
@@ -8,8 +10,8 @@ class SoundkitIndex extends Component {
   }
 
   componentWillMount() {
+    debugger
     axiosClient.get('/soundkits.json').then(response => {
-      debugger
       this.setState({ soundkits: response.data });
     });
   }
@@ -95,4 +97,8 @@ class SoundkitIndex extends Component {
   }
 }
 
-export default SoundkitIndex;
+const mapStateToProps = state => ({
+  soundKits: state.soundKits
+})
+
+export default connect(mapStateToProps)(SoundkitIndex)
