@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchSounds } from '../actions/samplerActions'
 import { setCurrentSoundkit } from '../actions/samplerActions'
+import SoundkitIndex from '../components/Soundkit/Index'
 
 class SoundKitContainer extends Component {
 
@@ -9,7 +10,6 @@ class SoundKitContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      soundKits: [],
       currentSoundkit: null
     }
   }
@@ -22,15 +22,12 @@ class SoundKitContainer extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    debugger
-    var soundkit_id = parseInt(this.state.currentSoundkit) // why doesn't const work here??
+    var soundkit_id = parseInt(this.state.currentSoundkit) // this.state.currentSoundkit is a number here
     var soundkit = this.props.soundKits.soundKits[soundkit_id - 1]
     this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
-    // this.props.renderPadContainer() // need this to trigger the rendering of the pad container
   }
 
   render() {
-    console.log(this.state.currentSoundkit)
     return (
       <div>
       <form onSubmit={event => this.handleSubmit(event)}>
