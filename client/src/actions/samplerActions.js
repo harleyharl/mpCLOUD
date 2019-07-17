@@ -18,7 +18,6 @@ export function fetchSounds(soundkit_id) {
 
 export function setCurrentSoundkit(soundkit) {
   return (dispatch) => {
-    debugger
     dispatch({ type: 'SET_CURRENT_SOUNDKIT', payload: soundkit })
   };
 }
