@@ -6,7 +6,7 @@ class Pad extends Component {
   constructor(props){
     super(props)
     this.state = {
-      playStatus: 'NOT PLAYING'
+      playStatus: 'STOPPED'
     }
   }
 
@@ -19,7 +19,7 @@ class Pad extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.play} class="pad" type="button" key={this.props.id} src={this.props.url}>
+        <button onClick={this.play} className="pad" type="button" key={this.props.id} src={this.props.url}>
           <p className="padText">{this.props.name}</p>
           <Sound playStatus={this.state.playStatus} url={this.props.url} />
         </button>
