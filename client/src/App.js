@@ -10,12 +10,9 @@ class App extends Component {
 
   constructor(props){
     super(props)
-    this.fileInput = React.createRef()
     this.state = {
-      user: '',
       soundKits: [],
-      currentSoundkit: null,
-      recordings: [],
+      currentSoundkit: null
     }
   }
 
@@ -24,35 +21,17 @@ class App extends Component {
     this.setState({
       soundKits: soundKits,
     })
-  } // pretty sure i don't need this here
+  }
 
 
 
   renderPadContainer = () => (
-
     this.props.soundKits.currentSoundkit ? <PadContainer sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
-    // renderSoundkitSelector = () => this.props.soundKits.soundKits.map((soundkit) => <option key={soundkit.id} value={soundkit.id}>{soundkit.name}</option>)
-)
-
-  handleOnChange = event => {
-    this.setState({
-      currentSoundkit: event.target.value
-    });
-  }
-
-  handleSubmit = event => {
-    event.preventDefault()
-    console.log(this.fileInput.current.files)
-  }
+  )
 
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSubmit}>
-          Build a soundkit here:
-          <input type="file" ref={this.fileInput}/>
-          <input type="submit" value="upload file"/>
-        </form>
         <SoundKitContainer onChange={this.handleOnChange} soundKits={this.props.soundKits}/>
         {this.renderPadContainer()}
       </div>
