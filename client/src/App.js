@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PadContainer from './containers/PadContainer'
 import SoundKitContainer from './containers/SoundKitContainer'
+import SoundkitIndex from './components/Soundkit/Index'
 import { connect } from 'react-redux'
 import { fetchSoundkits } from './actions/samplerActions'
 import { fetchSounds } from './actions/samplerActions'
@@ -18,6 +19,7 @@ class App extends Component {
 
   componentDidMount(){
     const soundKits = this.props.fetchSoundkits()
+    debugger
     this.setState({
       soundKits: soundKits,
     })
@@ -32,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SoundKitContainer onChange={this.handleOnChange} soundKits={this.props.soundKits}/>
+        <SoundKitContainer onChange={this.handleOnChange} history={this.props.history}/>
         {this.renderPadContainer()}
       </div>
     );
