@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Pads from '../components/Pads'
+import Pads from '../components/Pads/Pads'
 import { connect } from 'react-redux'
 import { fetchSounds } from '../actions/samplerActions'
 class PadContainer extends Component {
