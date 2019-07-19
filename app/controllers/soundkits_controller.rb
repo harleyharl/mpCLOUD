@@ -12,6 +12,12 @@ class SoundkitsController < ApplicationController
     )
   end
 
+  def update
+    id = params[:id]
+    @soundkit = Soundkit.where(id: id)
+    @soundkit.update(soundkit_params)
+  end
+
   def create
     # Rails.application.routes.url_helpers.rails_blob_path(Soundkit.all.last.sounds.first.sound_file_attachment, only_path: true)
     @soundkit = Soundkit.new(soundkit_params)
@@ -20,6 +26,12 @@ class SoundkitsController < ApplicationController
       sound.name = sound.sound_file.name
     end
     @soundkit.save
+  end
+
+  def delete
+    id = params[:id]
+    @soundkit = Soundkit.where(id: id)
+    @soundkit.destroy
   end
 
   def soundkit_params
