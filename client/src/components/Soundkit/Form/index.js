@@ -20,14 +20,16 @@ class SoundkitForm extends Component {
   };
 
   componentWillMount() {
+    // only runs on edit
     if (this.props.match.params.id) {
       axiosClient.get(`/soundkits/${this.props.match.params.id}`).then(response => {
+        debugger // check response.data.id!
         this.setState({
-          selectedSoundkitSoundFiles: response.data.sound_files,
+          selectedSoundkitSoundFiles: response.data[0].sounds,
           soundkit: {
-            id: response.data.id,
-            name: response.data.name,
-            description: response.data.description,
+            id: response.data[0].id,
+            name: response.data[0].name,
+            description: response.data[0].description,
             errors: {}
           }
         });
@@ -35,7 +37,7 @@ class SoundkitForm extends Component {
     }
   }
 
-  handleSoundkitNameChange(e) {
+handleSoundkitNameChange(e) {
   let { soundkit } = this.state;
   soundkit.name = e.target.value;
   this.setState({ soundkit: soundkit });
@@ -133,7 +135,8 @@ handleSoundkitSoundsChange() {
   );
 }
 
-renderSelectedSoundkitSoundFiles() {
+renderSelectedSoundkitSoundFiles() { //rerenders after a delete
+  debugger
   let fileDOMs = this.state.selectedSoundkitSoundFiles.map((el, index) => {
     if (el._destroy) { // we use _destroy to mark the removed sound
       return null;
@@ -168,7 +171,8 @@ renderSelectedSoundkitSoundFiles() {
 }
 
 
-removeSelectedSoundkitSoundFile(sound, index) {
+removeSelectedSoundkitSoundFile(sound, index) { //marks sound file with _destroy when its clicked
+  debugger
   let { selectedSoundkitSoundFiles } = this.state;
   if (sound.id) { // cover file that has been uploaded will be marked as destroy
     selectedSoundkitSoundFiles[index]._destroy = true;
@@ -188,6 +192,7 @@ handleCancel() {
 handleFormSubmit() {
   debugger
   let { soundkit } = this.state;
+  debugger
   soundkit.errors = {};
   this.setState(
     {
@@ -201,13 +206,14 @@ handleFormSubmit() {
 }
 
 buildFormData() {
-  var formData = new FormData();
+  debugger
+  let formData = new FormData();
   formData.append('soundkit[name]', this.state.soundkit.name);
   formData.append('soundkit[description]', this.state.soundkit.description);
 // debugger. for some reason "let" doesn't work here!
-  var { selectedSoundkitSoundFiles } = this.state;
+  var selectedSoundkitSoundFiles = this.state.selectedSoundkitSoundFiles;
   for (let i = 0; i < selectedSoundkitSoundFiles.length; i++) {
-    var file = selectedSoundkitSoundFiles[i];
+    let file = selectedSoundkitSoundFiles[i];
     if (file.id) {
       if (file._destroy) {
         formData.append(`soundkit[sounds_attributes][${i}][id]`, file.id); // this will be annoying
@@ -225,7 +231,7 @@ buildFormData() {
 }
 
 submitForm() {
-  // debugger
+  debugger
   let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing or adding
 
   let url = this.state.soundkit.id
@@ -243,7 +249,7 @@ submitForm() {
       this.setState({
         didFormSubmissionComplete: true
       });
-      this.props.history.push('/soundkits');
+      this.props.history.push('/');
     })
     .catch(error => {
       let { soundkit } = this.state;
