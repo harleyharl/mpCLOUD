@@ -3,14 +3,14 @@ import PadContainer from './containers/PadContainer'
 import SoundKitContainer from './containers/SoundKitContainer'
 import SoundkitIndex from './components/Soundkit/Index'
 import { connect } from 'react-redux'
-import { fetchSoundkits } from './actions/samplerActions'
-import { fetchSounds } from './actions/samplerActions'
+import { fetchSoundkits, fetchSounds, removeSoundkit  } from './actions/samplerActions'
 import './App.css';
 
 class App extends Component {
 
   constructor(props){
     super(props)
+    console.log(props)
     this.state = {
       soundKits: [],
       currentSoundkit: null
@@ -19,10 +19,10 @@ class App extends Component {
 
   componentDidMount(){
     const soundKits = this.props.fetchSoundkits()
-    debugger
-    this.setState({
-      soundKits: soundKits,
-    })
+    // debugger
+    // this.setState({
+    //   soundKits: soundKits,
+    // })
   }
 
 
@@ -47,4 +47,4 @@ const mapStateToProps = state => ({
   currentSoundkit: state.currentSoundkit
 })
 
-export default connect(mapStateToProps, {fetchSoundkits, fetchSounds})(App);
+export default connect(mapStateToProps, {fetchSoundkits, fetchSounds, removeSoundkit})(App);
