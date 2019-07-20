@@ -28,10 +28,19 @@ class SoundkitsController < ApplicationController
     @soundkit.save
   end
 
-  def delete
+  def destroy
     id = params[:id]
-    @soundkit = Soundkit.where(id: id)
-    @soundkit.destroy
+    # puts id
+    @soundkit = Soundkit.find_by(id: id)
+    @soundkit.sounds.each do |sound|
+      sound.sound_file.purge
+      # sound_to_purge.purge
+      # sound.destroy!
+    end
+    @soundkitCopy = @soundkit
+    @soundkit.destroy!
+    render json: @soundkitCopy, status: 200
+
   end
 
   def soundkit_params
