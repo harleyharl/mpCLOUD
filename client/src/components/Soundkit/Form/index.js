@@ -136,12 +136,10 @@ handleSoundkitSoundsChange() {
 }
 
 renderSelectedSoundkitSoundFiles() { //rerenders after a delete
-  debugger
   let fileDOMs = this.state.selectedSoundkitSoundFiles.map((el, index) => {
     if (el._destroy) { // we use _destroy to mark the removed sound
       return null;
     }
-
     return (
       <li key={index}>
         <div className="sound">
@@ -172,7 +170,6 @@ renderSelectedSoundkitSoundFiles() { //rerenders after a delete
 
 
 removeSelectedSoundkitSoundFile(sound, index) { //marks sound file with _destroy when its clicked
-  debugger
   let { selectedSoundkitSoundFiles } = this.state;
   if (sound.id) { // cover file that has been uploaded will be marked as destroy
     selectedSoundkitSoundFiles[index]._destroy = true;
@@ -190,9 +187,7 @@ handleCancel() {
 }
 
 handleFormSubmit() {
-  debugger
   let { soundkit } = this.state;
-  debugger
   soundkit.errors = {};
   this.setState(
     {
@@ -206,8 +201,8 @@ handleFormSubmit() {
 }
 
 buildFormData() {
-  debugger
   let formData = new FormData();
+  // debugger
   formData.append('soundkit[name]', this.state.soundkit.name);
   formData.append('soundkit[description]', this.state.soundkit.description);
 // debugger. for some reason "let" doesn't work here!
@@ -225,15 +220,17 @@ buildFormData() {
         file,
         file.name
       );
+      formData.append(
+        `soundkit[sounds_attributes][${i}][name]`,
+        file.name
+      )
     }
   }
   return formData;
 }
 
 submitForm() {
-  debugger
   let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing or adding
-
   let url = this.state.soundkit.id
     ? `/soundkits/${this.state.soundkit.id}.json`
     : '/soundkits.json';
@@ -243,12 +240,14 @@ submitForm() {
         this.setState({
           submitFormProgress: percentage
         });
+        debugger
       }
     })
     .then(response => {
       this.setState({
         didFormSubmissionComplete: true
       });
+      // debugger
       this.props.history.push('/');
     })
     .catch(error => {
@@ -266,7 +265,6 @@ renderUploadFormProgress() {
   if (this.state.isSubmittingForm === false) {
     return null;
   }
-
   return (
     <div className="progress">
       <div
@@ -289,7 +287,6 @@ renderUploadFormProgress() {
     return (
       <div className="SoundkitForm">
         <form>
-
           <div className="form-group">
             <label>Name</label>
             <input
@@ -300,7 +297,6 @@ renderUploadFormProgress() {
             />
             {this.renderSoundkitNameInlineError()}
           </div>
-
           <div className="form-group">
             <label>Description</label>
             <textarea
@@ -311,15 +307,12 @@ renderUploadFormProgress() {
             />
             {this.renderSoundkitDescriptionInlineError()}
           </div>
-
           <div className="form-group">
             <label>Sounds</label>
             {this.renderUploadSoundsButton()}
             {this.renderSelectedSoundkitSoundFiles()}
           </div>
-
           {this.renderUploadFormProgress()}
-
           <button
             disabled={this.state.isSubmittingForm}
             onClick={e => this.handleFormSubmit()}
@@ -333,7 +326,6 @@ renderUploadFormProgress() {
             className="btn btn-default">
             Cancel
           </button>
-
         </form>
         <br />
       </div>
