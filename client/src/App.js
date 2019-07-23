@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PadContainer from './containers/PadContainer'
 import SoundKitContainer from './containers/SoundKitContainer'
-import SoundkitIndex from './components/Soundkit/Index'
 import { connect } from 'react-redux'
-import { fetchSoundkits, fetchSounds, removeSoundkit  } from './actions/samplerActions'
+import { fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit  } from './actions/samplerActions'
 import './App.css';
 
 class App extends Component {
@@ -18,7 +17,9 @@ class App extends Component {
   }
 
   componentDidMount(){
+    debugger
     const soundKits = this.props.fetchSoundkits()
+    this.props.clearCurrentSoundkit()
     // debugger
     // this.setState({
     //   soundKits: soundKits,
@@ -28,7 +29,7 @@ class App extends Component {
 
 
   renderPadContainer = () => (
-    this.props.soundKits.currentSoundkit ? <PadContainer sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
+    this.props.soundKits.currentSoundkit ? <PadContainer currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
   )
 
   render() {
@@ -47,4 +48,4 @@ const mapStateToProps = state => ({
   currentSoundkit: state.currentSoundkit
 })
 
-export default connect(mapStateToProps, {fetchSoundkits, fetchSounds, removeSoundkit})(App);
+export default connect(mapStateToProps, {fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit})(App);
