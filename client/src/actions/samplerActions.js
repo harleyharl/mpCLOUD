@@ -37,12 +37,18 @@ export function removeSoundkit(soundkitId, data={}) {
   return (dispatch) => {
     return fetch(`/api/soundkits/${soundkitId}`, {
         method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
-      
+
         body: JSON.stringify(data), // body data type must match "Content-Type" header
     })
     .then(response => response.json()) // parses JSON response into native JavaScript objects
     .then(json => dispatch({ type: 'REMOVE_SOUNDKIT', payload: json}))
   }
+}
+
+export function clearCurrentSoundkit() {
+  return (dispatch) => {
+    dispatch({ type: 'CLEAR_CURRENT_SOUNDKIT' })
+  };
 }
 
 
