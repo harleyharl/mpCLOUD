@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchSoundkits, setCurrentSoundkit, fetchSounds, removeSoundkit  } from '../actions/samplerActions'
-
-import SoundkitIndex from '../components/Soundkit/Index'
 import axiosClient from '../axiosClient';
 
 
@@ -19,17 +17,17 @@ class SoundKitContainer extends Component {
 
   componentDidMount() {
     debugger
-      this.setState({ soundKits: this.props.soundKits });
+      this.setState({ soundKits: this.props.soundKits,
+        currentSoundkit: null
+      });
   }
-
-  renderSoundkitSelector = () => this.props.soundKits.soundKits.map((soundkit) => <option key={soundkit.id} value={soundkit.id}>{soundkit.name}</option>)
 
   handleChange(event) {
     this.setState({currentSoundkit: event.target.value})
   }
 
   handleSoundkitSelect(event) {
-    alert('An id was submitted: ' + event.target.attributes.value.value);
+    // alert('An id was submitted: ' + event.target.attributes.value.value);
     this.setState({currentSoundkit: event.target.attributes.value.value})
   }
 
@@ -37,26 +35,9 @@ class SoundKitContainer extends Component {
     debugger
     event.preventDefault()
     var soundkit_id = parseInt(this.state.currentSoundkit) // this.state.currentSoundkit is a number here
-    var soundkit = this.props.soundKits.soundKits[soundkit_id - 1]
+    var soundkit = this.props.soundKits.soundKits.filter(soundkit => soundkit.id === soundkit_id)[0]
     this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
   }
-
-  // render() {
-  //   return (
-  //     <div>
-  //     <form onSubmit={event => this.handleSubmit(event)}>
-  //       <label>
-  //         <select value={this.state.value} onChange={event => this.handleChange(event)}>
-  //         <option disabled selected value> -- select your soundkit -- </option>
-  //           {this.renderSoundkitSelector()}
-  //         </select>
-  //       </label>
-  //       <input type="submit" value="Submit" />
-  //     </form>
-  //     </div>
-  //   );
-  // }
-
 
   render() {
     return (
@@ -85,7 +66,6 @@ class SoundKitContainer extends Component {
   }
 
   handleNewSoundkit() {
-    console.log(this.props)
     this.props.history.push('/new');
   }
 
@@ -121,20 +101,14 @@ class SoundKitContainer extends Component {
   }
 
   handleRemove(soundkitId) {
-    debugger
-    // this.props.removeSoundkit(soundkitId)
-    // var soundkits = this.props.soundKits.soundKits;
-    // soundkits = soundkits.filter(soundkit => {
-    //   return soundkit.id !== soundkitId;
-    // });
-    // this.setState({ ...this.state, soundKits: soundkits });
     this.props.removeSoundkit(soundkitId)
     }
   }
 
 const mapStateToProps = state => ({
   //this is what gives the component access to the soundkits in the store
-  soundKits: state.soundKits
+  soundKits: state.soundKits,
+  currentSoundkit: state.soundKits.currentSoundkit
 })
 
 
