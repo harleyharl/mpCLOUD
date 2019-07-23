@@ -18,12 +18,11 @@ export default function soundkitsReducer(state = {
     case 'SET_CURRENT_SOUNDKIT':
     return { ...state, currentSoundkit: action.payload, loading: false }
 
-    // case 'REMOVE_SOUNDKIT':
-    // debugger
-    // return {...state, soundKits: action.payload, loading:false}
-
     case 'REMOVE_SOUNDKIT':
     return {soundKits: state.soundKits.filter(soundKit => soundKit.id !== action.payload.id)}
+
+    case 'CLEAR_CURRENT_SOUNDKIT':
+    return {...state, currentSoundkit: null, loading:false}
 
 
   default:
