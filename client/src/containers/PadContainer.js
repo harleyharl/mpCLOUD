@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
 import Pads from '../components/Pads/Pads'
 import { connect } from 'react-redux'
-import { fetchSounds } from '../actions/samplerActions'
 class PadContainer extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentSoundkit: []
-    }
-  }
-
-  // componentDidUpdate(){
-  //   // debugger
+  // componentDidMount(){
+  //   debugger
   //   const sounds = this.props.sounds
   //   this.setState({
   //     currentSoundkit: sounds
   //   })
   // }
 
+
   render() {
+    debugger
     return (
       <div>
-        <Pads sounds={this.props.sounds}/>
+        <Pads sounds={this.props.currentSoundkit.sounds}/>
+        <div>{this.props.currentSoundkit.description}</div>
       </div>
     );
   }
@@ -30,7 +25,7 @@ class PadContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentSoundkit: state.currentSoundkit
+  currentSoundkit: state.soundKits.currentSoundkit
 })
 
-export default connect(mapStateToProps, {fetchSounds})(PadContainer);
+export default connect(mapStateToProps)(PadContainer);
