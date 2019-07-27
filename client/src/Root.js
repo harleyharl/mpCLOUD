@@ -6,6 +6,7 @@ import App from './App'
 import SoundkitNew from './components/Soundkit/New';
 import SoundkitEdit from './components/Soundkit/Edit';
 import NotFound from './components/Soundkit/NotFound';
+import NavBar from './components/NavBar';
 
 const history = createBrowserHistory();
 
