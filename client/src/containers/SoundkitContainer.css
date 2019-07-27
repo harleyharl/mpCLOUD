@@ -1,0 +1,13 @@
+.soundkitContainer {
+  display: flex;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.soundkitContainerRow {
+
+}
+
+.soundkitContainerColumn {
+
+}
