@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PadContainer from './containers/PadContainer'
 import SoundKitContainer from './containers/SoundKitContainer'
+import VizualizerContainer from './containers/VizualizerContainer'
 import { connect } from 'react-redux'
 import { fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit  } from './actions/samplerActions'
-import './App.css';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import './App.css'
+import logo from './assets/mpCloud-logo.png';
+import NavBar from './components/NavBar'
+
 
 class App extends Component {
 
@@ -17,16 +24,9 @@ class App extends Component {
   }
 
   componentDidMount(){
-    debugger
     const soundKits = this.props.fetchSoundkits()
     this.props.clearCurrentSoundkit()
-    // debugger
-    // this.setState({
-    //   soundKits: soundKits,
-    // })
   }
-
-
 
   renderPadContainer = () => (
     this.props.soundKits.currentSoundkit ? <PadContainer currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
@@ -34,10 +34,20 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <SoundKitContainer onChange={this.handleOnChange} history={this.props.history}/>
-        {this.renderPadContainer()}
-      </div>
+      <Container className='mainContainer'>
+      <NavBar history={this.props.history}/>
+        <Row>
+          <Col>
+            <SoundKitContainer onChange={this.handleOnChange} history={this.props.history}/>
+          </Col>
+          <Col>
+            <VizualizerContainer onChange={this.handleOnChange} history={this.props.history}/>
+          </Col>
+        </Row>
+        <Row>
+          {this.renderPadContainer()}
+        </Row>
+      </Container>
     );
   }
 }
