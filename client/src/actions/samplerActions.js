@@ -51,6 +51,12 @@ export function clearCurrentSoundkit() {
   };
 }
 
+export function setCurrentSound(soundUrl) {
+  return (dispatch) => {
+    dispatch({ type: 'SET_CURRENT_SOUND', soundUrl })
+  };
+}
+
 
 // function postData(url = '', data = {}) {
 //   // Default options are marked with *
