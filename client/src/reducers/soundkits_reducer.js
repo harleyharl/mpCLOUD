@@ -1,7 +1,8 @@
 export default function soundkitsReducer(state = {
   loading: false,
   soundKits: [],
-  currentSoundkit: null
+  currentSoundkit: null,
+  currentSound: null
 }, action) {
 
   switch (action.type) {
@@ -23,6 +24,9 @@ export default function soundkitsReducer(state = {
 
     case 'CLEAR_CURRENT_SOUNDKIT':
     return {...state, currentSoundkit: null, loading:false}
+
+    case 'SET_CURRENT_SOUND':
+    return { ...state, currentSound: action.soundUrl}
 
 
   default:
