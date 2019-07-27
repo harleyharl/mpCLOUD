@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import Pads from '../components/Pads/Pads'
 import { connect } from 'react-redux'
+import Container from 'react-bootstrap/Container'
+
+
 class PadContainer extends Component {
 
-  // componentDidMount(){
-  //   debugger
-  //   const sounds = this.props.sounds
-  //   this.setState({
-  //     currentSoundkit: sounds
-  //   })
-  // }
-
-
   render() {
-    debugger
     return (
-      <div>
+      <Container>
         <Pads sounds={this.props.currentSoundkit.sounds}/>
         <div>{this.props.currentSoundkit.description}</div>
-      </div>
+      </Container>
     );
   }
 
