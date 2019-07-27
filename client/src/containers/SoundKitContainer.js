@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchSoundkits, setCurrentSoundkit, fetchSounds, removeSoundkit  } from '../actions/samplerActions'
 import axiosClient from '../axiosClient';
-
+import styled from 'styled-components'
+import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
+import './SoundkitContainer.css'
 
 class SoundKitContainer extends Component {
 
@@ -16,7 +19,6 @@ class SoundKitContainer extends Component {
   }
 
   componentDidMount() {
-    debugger
       this.setState({ soundKits: this.props.soundKits,
         currentSoundkit: null
       });
@@ -26,41 +28,14 @@ class SoundKitContainer extends Component {
     this.setState({currentSoundkit: event.target.value})
   }
 
-  handleSoundkitSelect(event) {
-    // alert('An id was submitted: ' + event.target.attributes.value.value);
-    this.setState({currentSoundkit: event.target.attributes.value.value})
-  }
-
-  handleSubmit(event) {
-    debugger
-    event.preventDefault()
-    var soundkit_id = parseInt(this.state.currentSoundkit) // this.state.currentSoundkit is a number here
-    var soundkit = this.props.soundKits.soundKits.filter(soundkit => soundkit.id === soundkit_id)[0]
-    this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
-  }
-
   render() {
     return (
-      <div className="SounkitIndex col-md-12" style={{ marginTop: 10 }}>
-        <div className="clearfix">
-          <div className="pull-right">
-            <button
-              onClick={e => this.handleNewSoundkit()}
-              className="btn btn-success">
-              New Soundkit
-            </button>
-          </div>
-        </div>
-        <div className="tableDiv">
-        <table className="table">
-          <tbody>
-            {this.renderTableBody()}
-          </tbody>
-        </table>
-        </div>
-        <button onClick={event => this.handleSubmit(event)}>
-          click here to load up selected soundkit
-        </button>
+      <div>
+        <Table className='soundkitContainer' striped borderless hover variant="dark">
+            <tbody>
+              {this.renderTableBody()}
+            </tbody>
+        </Table>
       </div>
     );
   }
@@ -73,22 +48,18 @@ class SoundKitContainer extends Component {
     if (this.props.soundKits.soundKits) {
       return this.props.soundKits.soundKits.map(soundkit => {
         return (
-          <tr className="soundKitSelectorBox">
-            <td value={soundkit.id} className="soundKitSelectorBox" onClick={event => this.handleSoundkitSelect(event)}>
+          <tr>
+            <td value={soundkit.id} onClick={event => this.handleSoundkitSelect(event)}>
               {soundkit.name}
             </td>
             <td>
-              <button
-                onClick={e => this.handleEdit(soundkit.id)}
-                className="btn btn-primary">
-                Edit
-              </button>
-              &nbsp;
-              <button
-                onClick={e => this.handleRemove(soundkit.id)}
-                className="btn btn-danger">
-                Remove
-              </button>
+              <Button variant="outline-primary" onClick={e => this.handleLoad(soundkit.id)}> Load </Button>
+            </td>
+            <td>
+              <Button variant="outline-warning" onClick={e => this.handleEdit(soundkit.id)}> Edit </Button>
+            </td>
+            <td>
+              <Button variant="outline-danger" onClick={e => this.handleRemove(soundkit.id)}> Remove </Button>
             </td>
           </tr>
         );
@@ -103,7 +74,14 @@ class SoundKitContainer extends Component {
   handleRemove(soundkitId) {
     this.props.removeSoundkit(soundkitId)
     }
+
+  handleLoad(soundkitId) {
+    var soundkit = this.props.soundKits.soundKits.filter(soundkit => soundkit.id === soundkitId)[0]
+    this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
   }
+}
+
+
 
 const mapStateToProps = state => ({
   //this is what gives the component access to the soundkits in the store
