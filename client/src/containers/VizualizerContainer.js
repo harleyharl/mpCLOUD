@@ -26,9 +26,11 @@ class VizualizerContainer extends Component {
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
     debugger
-    //this.props.soundKits.currentSound
     let audio = this.refs.audio
-    // let audio = this.props.currentSound
+    // let audio = document.createElement("audio"); // i had removed element from render... and the animation stopped rendering
+    // audio.src= this.props.currentSound
+    // audio.src= this.props.currentSound
+    // audio.ref= "audio"
     audio.crossOrigin = "anonymous";
     let audioSrc = context.createMediaElementSource(audio);
     audioSrc.connect(analyser);
@@ -62,7 +64,6 @@ class VizualizerContainer extends Component {
                 ref="audio"
                 autoPlay={true}
                 controls={true}
-                //this is the link to my song url feel free to use it or replace it with your own
                 src={this.props.currentSound}
                 >
               </audio>
