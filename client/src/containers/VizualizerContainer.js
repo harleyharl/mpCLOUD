@@ -15,13 +15,13 @@ class VizualizerContainer extends Component {
     }
   }
 
-  componentDidUpdate(){
-    debugger
-    this.createVisualization()
-  }
-
+  // componentDidUpdate(){
+  //   debugger
+  //   this.createVisualization()
+  // }
+  //
   createVisualization(){
-    let context = new AudioContext();
+    let context = this.props.context
     let analyser = context.createAnalyser();
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
@@ -55,6 +55,7 @@ class VizualizerContainer extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <Container className="vizualizerContainer">
           <h2>currentSound</h2>
