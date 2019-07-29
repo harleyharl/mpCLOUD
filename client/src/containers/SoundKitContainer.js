@@ -29,6 +29,7 @@ class SoundKitContainer extends Component {
   }
 
   render() {
+    console.log(this.props.context)
     return (
       <div>
         <Table className='soundkitContainer' striped borderless hover variant="dark">
