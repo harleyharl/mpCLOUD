@@ -42,6 +42,7 @@ class Pad extends Component {
   handleClick = () => {
     this.audio.play()
     this.audio.currentTime = 0
+    console.log(this.props)
   }
 
   componentDidMount(){
@@ -55,19 +56,23 @@ class Pad extends Component {
     }
   }
 
+drumPad = (
+      <audio
+        className="pad"
+        ref={ref => this.audio = ref}
+        className='clip'
+        src={this.props.url}
+        id={this.props.id}
+        onPlay={e => this.sendToVizualizer(e)}
+        >
+      </audio>
+    )
+
   render() {
     return (
         <Button type="button" id={this.props.sound.id} onClick={this.handleClick}>
         <ButtonText> {this.props.name.toLowerCase()} </ButtonText>
-          <audio
-            className="pad"
-            ref={ref => this.audio = ref}
-            className='clip'
-            src={this.props.url}
-            id={this.props.id}
-            onPlay={e => this.sendToVizualizer(e)}
-            >
-          </audio>
+          {this.drumPad}
         </Button>
     );
   }
