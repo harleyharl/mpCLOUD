@@ -9,7 +9,7 @@ class PadContainer extends Component {
   render() {
     return (
       <Container>
-        <Pads sounds={this.props.currentSoundkit.sounds}/>
+        <Pads context={this.props.context} sounds={this.props.currentSoundkit.sounds}/>
         <div>{this.props.currentSoundkit.description}</div>
       </Container>
     );
