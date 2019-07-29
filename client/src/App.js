@@ -16,7 +16,6 @@ class App extends Component {
 
   constructor(props){
     super(props)
-    console.log(props)
     this.state = {
       soundKits: [],
       currentSoundkit: null
@@ -28,11 +27,12 @@ class App extends Component {
     this.props.clearCurrentSoundkit()
   }
 
-  renderPadContainer = () => (
-    this.props.soundKits.currentSoundkit ? <PadContainer currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
+  renderPadContainer = (context) => (
+    this.props.soundKits.currentSoundkit ? <PadContainer context={context} currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
   )
 
   render() {
+    const context = new AudioContext()
     return (
       <Container className='mainContainer'>
       <NavBar history={this.props.history}/>
@@ -41,11 +41,11 @@ class App extends Component {
             <SoundKitContainer onChange={this.handleOnChange} history={this.props.history}/>
           </Col>
           <Col>
-            <VizualizerContainer onChange={this.handleOnChange} history={this.props.history}/>
+            <VizualizerContainer context={context} onChange={this.handleOnChange} history={this.props.history}/>
           </Col>
         </Row>
         <Row>
-          {this.renderPadContainer()}
+          {this.renderPadContainer(context)}
         </Row>
       </Container>
     );
