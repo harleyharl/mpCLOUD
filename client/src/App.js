@@ -27,25 +27,26 @@ class App extends Component {
     this.props.clearCurrentSoundkit()
   }
 
-  renderPadContainer = (context) => (
-    this.props.soundKits.currentSoundkit ? <PadContainer context={context} currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
+  renderPadContainer = (context, analyser) => (
+    this.props.soundKits.currentSoundkit ? <PadContainer analyser={analyser} context={context} currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
   )
 
   render() {
     const context = new AudioContext()
+    const analyser = context.createAnalyser()
     return (
       <Container className='mainContainer'>
       <NavBar history={this.props.history}/>
         <Row>
           <Col>
-            <SoundKitContainer onChange={this.handleOnChange} history={this.props.history}/>
+            <SoundKitContainer analyser={analyser} onChange={this.handleOnChange} history={this.props.history}/>
           </Col>
           <Col>
-            <VizualizerContainer context={context} onChange={this.handleOnChange} history={this.props.history}/>
+            <VizualizerContainer analyser={analyser} context={context} onChange={this.handleOnChange} history={this.props.history}/>
           </Col>
         </Row>
         <Row>
-          {this.renderPadContainer(context)}
+          {this.renderPadContainer(context, analyser)}
         </Row>
       </Container>
     );
