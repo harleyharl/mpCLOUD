@@ -35,18 +35,23 @@ const ButtonText = styled.p`
 class Pad extends Component {
 
   sendToVizualizer = (e) => {
-    debugger
+    // debugger
     this.props.setCurrentSound(e.currentTarget.src)
   }
 
   handleClick = () => {
     this.audio.play()
     this.audio.currentTime = 0
-    console.log(this.props)
   }
 
   componentDidMount(){
     document.addEventListener('keypress', this.handleKeyDown)
+    let audioElement = document.getElementById(this.props.sound.id)
+    audioElement.crossOrigin = "anonymous"
+    let mediaElementSource = this.props.context.createMediaElementSource(audioElement)
+    mediaElementSource.connect(this.props.context.destination)
+    mediaElementSource.connect(this.props.analyser)
+    // mediaElementSource.start(0)
   }
 
   handleKeyDown = (e) => {
@@ -56,23 +61,31 @@ class Pad extends Component {
     }
   }
 
-drumPad = (
-      <audio
-        className="pad"
-        ref={ref => this.audio = ref}
-        className='clip'
-        src={this.props.url}
-        id={this.props.id}
-        onPlay={e => this.sendToVizualizer(e)}
-        >
-      </audio>
-    )
+// drumPad = (
+//       <audio
+//         className="pad"
+//         ref={ref => this.audio = ref}
+//         className='clip'
+//         src={this.props.url}
+//         id={this.props.sound.id}
+//         onPlay={e => this.sendToVizualizer(e)}
+//         >
+//       </audio>
+//     )
 
   render() {
     return (
-        <Button type="button" id={this.props.sound.id} onClick={this.handleClick}>
+        <Button type="button" onClick={this.handleClick}>
         <ButtonText> {this.props.name.toLowerCase()} </ButtonText>
-          {this.drumPad}
+        <audio
+          className="pad"
+          ref={ref => this.audio = ref}
+          className='clip'
+          src={this.props.url}
+          id={this.props.sound.id}
+          onPlay={e => this.sendToVizualizer(e)}
+          >
+        </audio>
         </Button>
     );
   }
