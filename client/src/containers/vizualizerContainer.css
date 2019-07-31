@@ -1,7 +1,7 @@
 .vizualizerContainer {
   color: white;
-  background-color: white;
-  display: flex;
-  height: 200px;
-
+  background-color: red;
+  margin: auto;
+  padding: 100px;
+  width: 50%;
 }
