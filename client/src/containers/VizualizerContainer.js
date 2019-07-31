@@ -10,69 +10,51 @@ class VizualizerContainer extends Component {
   constructor(props){
     super(props)
     this.createVisualization = this.createVisualization.bind(this)
-    this.state = {
-      currentSound: ""
-    }
   }
 
-  // componentDidUpdate(){
-  //   debugger
-  //   this.createVisualization()
-  // }
+    componentDidUpdate(){
+      this.createVisualization()
+    }
   //
   createVisualization(){
     let context = this.props.context
-    let analyser = context.createAnalyser();
+    let analyser = this.props.analyser;
+    analyser.minDecibels = -180;
+    analyser.maxDecibels = 100;
+    analyser.smoothingTimeConstant = 0.7
+    // debugger
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
-    debugger
-    let audio = this.refs.audio
-    // let audio = document.createElement("audio"); // i had removed element from render... and the animation stopped rendering
-    // audio.src= this.props.currentSound
-    // audio.src= this.props.currentSound
-    // audio.ref= "audio"
-    audio.crossOrigin = "anonymous";
-    let audioSrc = context.createMediaElementSource(audio);
-    audioSrc.connect(analyser);
-    audioSrc.connect(context.destination);
-    analyser.connect(context.destination);
-
+    // debugger
     function renderFrame(){
-    let freqData = new Uint8Array(analyser.frequencyBinCount)
-    requestAnimationFrame(renderFrame)
-    analyser.getByteFrequencyData(freqData)
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.fillStyle = '#9933ff';
-    let bars = 100;
-    for (var i = 0; i < bars; i++) {
-        let bar_x = i * 3;
-        let bar_width = 2;
-        let bar_height = -(freqData[i] / 2);
-        ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
+      let freqData = new Uint8Array(analyser.frequencyBinCount) // gives us huge array of zeroes (1024 to be precise)
+      requestAnimationFrame(renderFrame) // gives us the current animation frame number
+      analyser.getByteFrequencyData(freqData) //copies the current frequency data into a Uint8Array (unsigned byte array) passed into it (freqData)
+      if (freqData[1] !== 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height) // clears
+        ctx.fillStyle = '#0069D9';
+        let bars = 1024;
+        for (var i = 0; i < bars; i++) {
+            let bar_x = i * 3;
+            let bar_width = 1.5;
+            let bar_height = -(freqData[(i)]);
+            ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
+            }
         }
-    };
+      }
     renderFrame()
   }
 
   render() {
-    console.log(this.props)
     return (
-      <Container className="vizualizerContainer">
-          <h2>currentSound</h2>
-          <div id="mp3_player">
-           <div id="audio_box">
-              <audio
-                ref="audio"
-                autoPlay={true}
-                controls={true}
-                src={this.props.currentSound}
-                >
-              </audio>
-            </div>
-            </div>
+      <Container className="visualizerContainer" align-content="center">
             <canvas
+                height="200px"
                 ref="analyzerCanvas"
                 id="analyzer"
+                position="fixed"
+                width="400%"
+                align-content="center"
                 >
             </canvas>
       </Container>
@@ -80,8 +62,8 @@ class VizualizerContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentSound: state.soundKits.currentSound
-})
+// const mapStateToProps = state => ({
+//   currentSound: state.soundKits.currentSound
+// })
 
-export default connect(mapStateToProps)(VizualizerContainer);
+export default VizualizerContainer
