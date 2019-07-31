@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 
 class Pads extends Component {
 
-  renderPads = () => this.props.sounds.map((sound, index) => <Pad context={this.props.context} index={index} sound={sound} key={sound.id} url={sound.url} name={sound.name} letter={(this.assignLetter(index))} />)
+  renderPads = () => this.props.sounds.map((sound, index) => <Pad analyser={this.props.analyser} context={this.props.context} index={index} sound={sound} key={sound.id} url={sound.url} name={sound.name} letter={(this.assignLetter(index))} />)
 
 
   assignLetter = (index) => {
@@ -44,7 +44,6 @@ class Pads extends Component {
   }
 
   render() {
-    console.log(this.props.context)
     return(
       <Container >
         {this.renderPads()}
