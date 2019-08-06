@@ -1,6 +1,11 @@
 class Soundkit < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
+  # validate :validate_size
+  #
+  # def validate_size
+  #   errors.add(:size, "too much") if sounds.size < 5
+  # end
 
   has_many :sounds, dependent: :destroy
   accepts_nested_attributes_for :sounds, allow_destroy: true
