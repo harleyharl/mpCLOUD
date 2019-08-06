@@ -27,10 +27,121 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <style>
+    .btnd:active,
+    .btnd:focus,
+    .btnd:focus:active {
+      background-image: none;
+      outline: 0;
+      box-shadow: none;
+    }
+    html {
+        background-color: #d2d2d2;
+        height: 100%;
+      }
+      #root > div > nav {
+          background-color: #1D1D1B !important;
+      }
+      #root > div {
+          background-color: #D2D2D2 !important;
+      }
+      body {background-color: #1d1e22}
+      @media (min-width: 769px){
+      .mainContainer {
+          max-width: 100% !important;
+        }
+      }
+      .btn-outline-primary {
+        color: #005995 !important;
+        border-color: #005995 !important;
+      }
+      .button-container .btn-outline-primary:hover {
+        color: white !important;
+        background-color: #005995 !important;
+        border-color: #005995 !important;
+      }
+      .btn-outline-warning {
+        color: #600473 !important;
+        border-color: #600473 !important;
+      }
+      .button-container .btn-outline-warning:hover {
+        color: white !important;
+        background-color: #600473 !important;
+        border-color: #600473 !important;
+      }
+      .btn-outline-danger {
+        color: #fa625f !important;
+        border-color: #fa625f !important;
+      }
+      .button-container .btn-outline-danger:hover {
+        color: white !important;
+        background-color: #fa625f !important;
+        border-color: #fa625f !important;
+      }
+
+      /* navbar buttons */
+      nav .btn-outline-primary {
+        color: white !important;
+        border-color: #005995 !important;
+      }
+
+      nav .btn-outline-warning {
+        color: white !important;
+        border-color: #600473 !important;
+      }
+
+      nav .btn-outline-warning:hover {
+        color: white !important;
+        background-color: #600473 !important;
+        border-color: #600473 !important;
+      }
+
+      nav  .btn-outline-primary:hover {
+        color: white !important;
+        background-color: #005995 !important;
+        border-color: #005995 !important;
+      }
+
+      /* uploading buttons */
+      form .btn-outline-primary {
+        color: #005995 !important;
+        border-color: #005995 !important;
+      }
+
+      form .btn-outline-primary:hover {
+        color: white !important;
+        background-color: #005995 !important;
+        border-color: #005995 !important;
+      }
+
+      form .btn-outline-warning {
+        color: #600473 !important;
+        border-color: #600473 !important;
+      }
+
+      form .btn-outline-warning:hover {
+        color: white !important;
+        background-color: #600473 !important;
+        border-color: #600473 !important;
+      }
+
+      form .btn-outline-danger {
+        color: #fa625f !important;
+        border-color: #fa625f !important;
+      }
+
+      form .btn-outline-danger:hover {
+        color: white !important;
+        background-color: #fa625f !important;
+        border-color: #fa625f !important;
+      }
+
+
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div style="background-color: #A9A9A9" id="root"></div>
+    <div id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
