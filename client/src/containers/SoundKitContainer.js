@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { fetchSoundkits, setCurrentSoundkit, fetchSounds, removeSoundkit  } from '../actions/samplerActions'
-import axiosClient from '../axiosClient';
-import styled from 'styled-components'
+import { setCurrentSoundkit, fetchSounds, removeSoundkit  } from '../actions/samplerActions'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import './SoundkitContainer.css'
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 class SoundKitContainer extends Component {
 
@@ -30,12 +30,10 @@ class SoundKitContainer extends Component {
 
   render() {
     return (
-      <div>
-        <Table className='soundkitContainer' striped borderless hover variant="dark">
-            <tbody>
-              {this.renderTableBody()}
-            </tbody>
-        </Table>
+      <div className="soundkitContainer">
+        <ul className="soundKitList">
+            {this.renderTableBody()}
+        </ul>
       </div>
     );
   }
@@ -48,20 +46,20 @@ class SoundKitContainer extends Component {
     if (this.props.soundKits.soundKits) {
       return this.props.soundKits.soundKits.map(soundkit => {
         return (
-          <tr>
-            <td value={soundkit.id} onClick={event => this.handleSoundkitSelect(event)}>
-              {soundkit.name}
-            </td>
-            <td>
-              <Button variant="outline-primary" onClick={e => this.handleLoad(soundkit.id)}> Load </Button>
-            </td>
-            <td>
-              <Button variant="outline-warning" onClick={e => this.handleEdit(soundkit.id)}> Edit </Button>
-            </td>
-            <td>
-              <Button variant="outline-danger" onClick={e => this.handleRemove(soundkit.id)}> Remove </Button>
-            </td>
-          </tr>
+            <li value={soundkit.id} >
+              <div className="align-center"><p>{soundkit.name}</p></div>
+              <div className="buttons-container">
+                <div className="button-container">
+                  <Button variant="outline-primary" onClick={e => this.handleLoad(soundkit.id)} ><p>Load</p></Button>
+                </div>
+                <div className="button-container">
+                  <Button variant="outline-warning" onClick={e => this.handleEdit(soundkit.id)}> Edit </Button>
+                </div>
+                <div className="button-container">
+                  <Button variant="outline-danger" onClick={e => this.handleRemove(soundkit.id)}> Remove </Button>
+                </div>
+              </div>
+            </li>
         );
       });
     }
@@ -84,7 +82,6 @@ class SoundKitContainer extends Component {
 
 
 const mapStateToProps = state => ({
-  //this is what gives the component access to the soundkits in the store
   soundKits: state.soundKits,
   currentSoundkit: state.soundKits.currentSoundkit
 })
