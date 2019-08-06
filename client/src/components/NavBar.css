@@ -9,3 +9,11 @@
   left: 'auto';
   position: 'fixed';
 }
+
+nav div button:nth-child(1){
+  margin-right: 20px
+}
+
+nav div button{
+  width: 140px
+}
