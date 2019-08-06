@@ -1,1 +1,4 @@
-import styled from 'styled-components'
+.soundkitDescription {
+  color: #005995;
+  font-size: 0.8em
+}
