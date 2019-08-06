@@ -1,8 +1,7 @@
 import './index.css';
 import React, { Component } from 'react';
 import axiosClient from '../../../axiosClient';
-// const axios = require('axios');
-
+import soundImage from '../../../images/soundImage.png'
 
 class SoundkitForm extends Component {
 
@@ -104,10 +103,8 @@ renderUploadSoundsButton() {
       />
       <label
         disabled={this.state.isSubmittingForm}
-        className="btn btn-success"
+        className="btn btn-outline-primary"
         htmlFor="soundkit_sounds">
-        <span className="glyphicon glyphicon-cloud-upload" />
-        &nbsp; &nbsp;
         {numberOfSelectedSounds === 0
           ? 'Upload Files'
           : `${numberOfSelectedSounds} file${numberOfSelectedSounds !== 1
@@ -123,7 +120,7 @@ handleSoundkitSoundsChange() {
   let { selectedSoundkitSoundFiles } = this.state;
   for (let i = 0; i < selectedFiles.length; i++) {
     selectedSoundkitSoundFiles.push(selectedFiles.item(i));
-  } //end for
+  }
 
   this.setState(
     {
@@ -144,14 +141,15 @@ renderSelectedSoundkitSoundFiles() { //rerenders after a delete
       <li key={index}>
         <div className="sound">
           <img
+            alt="sound"
             width={150}
-            src={el.id ? el.url : URL.createObjectURL(el)}
+            src={soundImage}
             style={{ alignSelf: 'center' }}
           />
           <div
             className="remove"
             onClick={() => this.removeSelectedSoundkitSoundFile(el, index)}>
-            <span style={{ top: 2 }} className="glyphicon glyphicon-remove" />
+            <div className="removeButton">x</div>
           </div>
         </div>
         <div className="file-name">
@@ -308,7 +306,6 @@ renderUploadFormProgress() {
             {this.renderSoundkitDescriptionInlineError()}
           </div>
           <div className="form-group">
-            <label>Sounds</label>
             {this.renderUploadSoundsButton()}
             {this.renderSelectedSoundkitSoundFiles()}
           </div>
@@ -316,14 +313,14 @@ renderUploadFormProgress() {
           <button
             disabled={this.state.isSubmittingForm}
             onClick={e => this.handleFormSubmit()}
-            className="btn btn-primary">
+            className="btn btn-outline-warning form-button">
             {this.state.isSubmittingForm ? 'Saving...' : 'Save'}
           </button>
           &nbsp;
           <button
             disabled={this.state.isSubmittingForm}
             onClick={e => this.handleCancel()}
-            className="btn btn-default">
+            className="btn btn-outline-danger form-button">
             Cancel
           </button>
         </form>
