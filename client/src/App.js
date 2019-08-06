@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PadContainer from './containers/PadContainer'
 import SoundKitContainer from './containers/SoundKitContainer'
-import VizualizerContainer from './containers/VizualizerContainer'
+import VisualizerContainer from './containers/VisualizerContainer'
 import { connect } from 'react-redux'
 import { fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit  } from './actions/samplerActions'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './App.css'
-import logo from './assets/mpCloud-logo.png';
 import NavBar from './components/NavBar'
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    const soundKits = this.props.fetchSoundkits()
+    this.props.fetchSoundkits()
     this.props.clearCurrentSoundkit()
   }
 
@@ -35,20 +35,22 @@ class App extends Component {
     const context = new AudioContext()
     const analyser = context.createAnalyser()
     return (
-      <Container className='mainContainer'>
-      <NavBar history={this.props.history}/>
-        <Row>
-          <Col>
-            <SoundKitContainer analyser={analyser} onChange={this.handleOnChange} history={this.props.history}/>
-          </Col>
-          <Col>
-            <VizualizerContainer analyser={analyser} context={context} onChange={this.handleOnChange} history={this.props.history}/>
-          </Col>
-        </Row>
-        <Row>
-          {this.renderPadContainer(context, analyser)}
-        </Row>
-      </Container>
+      <div>
+        <NavBar history={this.props.history}/>
+        <div className='mainContainer'>
+          <Row className="spacer-normal">
+            <Col>
+              <SoundKitContainer analyser={analyser} onChange={this.handleOnChange} history={this.props.history}/>
+            </Col>
+            <Col>
+              <VisualizerContainer analyser={analyser} context={context} onChange={this.handleOnChange} history={this.props.history}/>
+            </Col>
+          </Row>
+          <Row className="spacer-normal">
+            {this.renderPadContainer(context, analyser)}
+          </Row>
+        </div>
+      </div>
     );
   }
 }
