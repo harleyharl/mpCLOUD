@@ -6,7 +6,7 @@ import App from './App'
 import SoundkitNew from './components/Soundkit/New';
 import SoundkitEdit from './components/Soundkit/Edit';
 import NotFound from './components/Soundkit/NotFound';
-import NavBar from './components/NavBar';
+import About from './components/About'
 
 const history = createBrowserHistory();
 
@@ -17,6 +17,7 @@ const Root = ({ store }) =>
       <Route exact path="/" component={App}/>
       <Route path="/new" component={SoundkitNew} />
       <Route path="/soundkits/:id/edit" component={SoundkitEdit} />
+      <Route path="/about" component={About} />
       <Route component={NotFound} />
     </Switch>
   </Router>
