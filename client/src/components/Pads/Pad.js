@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Sound from 'react-sound'
 import styled from 'styled-components'
 import { setCurrentSound } from '../../actions/samplerActions'
 import { connect } from 'react-redux'
@@ -9,40 +8,58 @@ const Button = styled.button`
   margin: 10px;
   font-family: Times;
   background-color: DimGrey;
-  height:10em;
-  width:10em;
+  height:7em;
+  width:7em;
   position: relative
   border-radius: 20px;
   overflow: hidden
+  &:hover {
+    background: #555;
+  }
 `
 
 const ButtonText = styled.p`
-  background-color: DimGrey;
   font-family: Arial
   font-size: 15px
   line-height: 15px
   width: 45px
-  color: white
+  color: #005995
   position: absolute;
-  bottom: -5px;
-  right: 10px;
+  bottom: 0px;
+  right: 15px;
   border: 0;
-  overflow: hidden
   text-align: right
   word-wrap: break-word;
 `
 
 class Pad extends Component {
 
-  sendToVizualizer = (e) => {
-    // debugger
-    this.props.setCurrentSound(e.currentTarget.src)
+  constructor(props){
+    super(props)
+    this.state = {
+      bgColor: "#fbf579"
+    }
   }
 
-  handleClick = () => {
+  changeColor = (color) => {
+    this.setState({
+      bgColor: color
+    })
+  }
+
+  changeColorBack = () => {
+    if (this.state.bgColor === "#fa625f") {
+      this.setState({bgColor : "#fbf579"})
+    }
+  }
+
+  handleClick = (e) => {
     this.audio.play()
     this.audio.currentTime = 0
+    this.changeColor("#fa625f")
+    setTimeout(() => this.changeColorBack(), 50);
   }
+
 
   componentDidMount(){
     document.addEventListener('keypress', this.handleKeyDown)
@@ -51,42 +68,32 @@ class Pad extends Component {
     let mediaElementSource = this.props.context.createMediaElementSource(audioElement)
     mediaElementSource.connect(this.props.context.destination)
     mediaElementSource.connect(this.props.analyser)
-    // mediaElementSource.start(0)
   }
 
   handleKeyDown = (e) => {
     if (e.charCode === this.props.letter.charCodeAt()) {
-    this.audio.play()
-    this.audio.currentTime = 0
+      if (this.audio) {
+        this.audio.play()
+        this.audio.currentTime = 0
+        this.changeColor("#fa625f")
+        setTimeout(() => this.changeColorBack(), 50);
+
+      }
     }
   }
 
-// drumPad = (
-//       <audio
-//         className="pad"
-//         ref={ref => this.audio = ref}
-//         className='clip'
-//         src={this.props.url}
-//         id={this.props.sound.id}
-//         onPlay={e => this.sendToVizualizer(e)}
-//         >
-//       </audio>
-//     )
-
   render() {
     return (
-        <Button type="button" onClick={this.handleClick}>
-        <ButtonText> {this.props.name.toLowerCase()} </ButtonText>
-        <audio
-          className="pad"
-          ref={ref => this.audio = ref}
-          className='clip'
-          src={this.props.url}
-          id={this.props.sound.id}
-          onPlay={e => this.sendToVizualizer(e)}
-          >
-        </audio>
-        </Button>
+      <Button title={this.props.sound.name} type="button" onClick={this.handleClick} style={{backgroundColor: this.state.bgColor}}>
+      <ButtonText> {this.props.letter} </ButtonText>
+      <audio
+        className="pad"
+        ref={ref => this.audio = ref}
+        src={this.props.url}
+        id={this.props.sound.id}
+        >
+      </audio>
+      </Button>
     );
   }
 
