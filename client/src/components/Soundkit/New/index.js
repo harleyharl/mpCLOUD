@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SoundkitForm from '../Form/index';
 import Container from 'react-bootstrap/Container'
+import './index.css'
 
 class SoundkitNew extends Component {
   render() {
