@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
-import Nav from 'react-bootstrap/Nav'
 import './NavBar.css'
 
 class NavBar extends Component {
@@ -18,10 +16,10 @@ class NavBar extends Component {
   render() {
     return (
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand>MPCLOUD 1.0</Navbar.Brand>
+        <Navbar.Brand>MPCloud</Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
-          <Button onClick={e => this.handleNewSoundkit()}>Upload Sounds</Button>
-          <Button onClick={e => this.handleAbout()}>About</Button>
+          <Button variant="outline-primary" onClick={e => this.handleNewSoundkit()}>Upload Sounds</Button>
+          <Button variant="outline-warning" onClick={e => this.handleAbout()}>About</Button>
         </Navbar.Collapse>
       </Navbar>
     );
