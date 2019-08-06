@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import Pads from '../components/Pads/Pads'
 import { connect } from 'react-redux'
 import Container from 'react-bootstrap/Container'
+import './PadContainer.css'
 
 
 class PadContainer extends Component {
 
   render() {
+    console.log(this.props)
     return (
-      <Container>
-        <Pads analyser={this.props.analyser} context={this.props.context} sounds={this.props.currentSoundkit.sounds}/>
-        <div>{this.props.currentSoundkit.description}</div>
+      <Container className="text-center">
+        <Pads currentSoundkit={this.props.currentSoundkit} analyser={this.props.analyser} context={this.props.context} sounds={this.props.currentSoundkit.sounds}/>
       </Container>
     );
   }
