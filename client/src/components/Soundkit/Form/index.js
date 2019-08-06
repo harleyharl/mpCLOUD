@@ -22,14 +22,13 @@ class SoundkitForm extends Component {
     // only runs on edit
     if (this.props.match.params.id) {
       axiosClient.get(`/soundkits/${this.props.match.params.id}`).then(response => {
-        debugger // check response.data.id!
         this.setState({
           selectedSoundkitSoundFiles: response.data[0].sounds,
           soundkit: {
             id: response.data[0].id,
             name: response.data[0].name,
             description: response.data[0].description,
-            errors: {}
+            errors: response.data[0].errors
           }
         });
       });
@@ -141,7 +140,7 @@ renderSelectedSoundkitSoundFiles() { //rerenders after a delete
       <li key={index}>
         <div className="sound">
           <img
-            alt="sound"
+            alt="Sound File"
             width={150}
             src={soundImage}
             style={{ alignSelf: 'center' }}
@@ -249,6 +248,7 @@ submitForm() {
       this.props.history.push('/');
     })
     .catch(error => {
+      // debugger
       let { soundkit } = this.state;
       soundkit.errors = error.response.data;
       this.setState({
