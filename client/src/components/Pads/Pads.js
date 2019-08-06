@@ -1,6 +1,32 @@
 import React, { Component } from 'react';
+import styled from 'styled-components'
 import Pad from './Pad'
 import Container from 'react-bootstrap/Container'
+
+const Button = styled.button`
+  background-color: #D4D4DC;
+  height:7em;
+  width:7em;
+  position: relative
+  border-radius: 20px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 20px;
+  border: 1px
+  border-style: dotted;
+`
+
+const ButtonText = styled.div`
+  font-family: Arial;
+  font-size: 12px;
+  line-height: 12px;
+  width: 6.5em;
+  color: #005995;
+  position: absolute;
+  right: 15px;
+  top: 7px
+`
 
 class Pads extends Component {
 
@@ -44,9 +70,13 @@ class Pads extends Component {
   }
 
   render() {
+    console.log(this.props)
     return(
       <Container >
         {this.renderPads()}
+        <Button>
+          <ButtonText> <b>{this.props.currentSoundkit.name}:</b> {this.props.currentSoundkit.description} </ButtonText>
+        </Button>
       </Container >
     );
   }
