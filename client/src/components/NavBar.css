@@ -17,3 +17,13 @@ nav div button:nth-child(1){
 nav div button{
   width: 140px
 }
+
+.homeButton {
+  background-color: #1D1D1B;
+  border: none;
+}
+
+.homeButton:hover{
+  background-color: black;
+  border: none;
+}
