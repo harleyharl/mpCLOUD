@@ -4,13 +4,10 @@ import SoundKitContainer from './containers/SoundKitContainer'
 import VisualizerContainer from './containers/VisualizerContainer'
 import { connect } from 'react-redux'
 import { fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit  } from './actions/samplerActions'
-import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './App.css'
 import NavBar from './components/NavBar'
-import 'bootstrap/dist/css/bootstrap.css';
-
 
 class App extends Component {
 
