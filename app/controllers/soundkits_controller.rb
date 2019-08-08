@@ -23,6 +23,7 @@ class SoundkitsController < ApplicationController
     @soundkit.sounds.each do |sound|
       sound.url = url_for(sound.sound_file)
     end
+    #if we can save the soundkit
     @soundkit.save
   end
 
