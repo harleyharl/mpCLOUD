@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { setCurrentSoundkit, fetchSounds, removeSoundkit  } from '../actions/samplerActions'
-import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import './SoundkitContainer.css'
-import 'bootstrap/dist/css/bootstrap.css';
 
 
 class SoundKitContainer extends Component {
 
-
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       currentSoundkit: null,
       soundKits: []
@@ -19,9 +16,9 @@ class SoundKitContainer extends Component {
   }
 
   componentDidMount() {
-      this.setState({ soundKits: this.props.soundKits,
-        currentSoundkit: null
-      });
+    this.setState({ soundKits: this.props.soundKits,
+      currentSoundkit: null
+    });
   }
 
   handleChange(event) {
