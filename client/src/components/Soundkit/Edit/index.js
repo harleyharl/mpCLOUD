@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import SoundkitForm from '../Form/index';
+import './index.css'
+import NavBar from '../../NavBar'
 
 class SoundkitEdit extends Component {
   render() {
     return (
-      <div className="SoundkitEdit col-md-8 col-md-offset-2">
-        <h2>Edit Soundkit</h2>
-        <SoundkitForm history={this.props.history} match={this.props.match} />
+      <div>
+        <NavBar history={this.props.history}/>
+        <div className="SoundkitEdit">
+          <h2>Edit Soundkit</h2>
+          <SoundkitForm history={this.props.history} match={this.props.match} />
+        </div>
       </div>
     );
   }
