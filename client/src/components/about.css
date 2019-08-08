@@ -1,0 +1,13 @@
+.about {
+  background-color: #D2D2D2;
+  width: 100%;
+  padding: 100px !important;
+}
+
+.aboutButton {
+  background-color: #600473
+}
+
+.aboutButton :hover {
+  background-color: none;
+}
