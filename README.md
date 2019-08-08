@@ -1,2 +1,2 @@
 # mpCLOUD
-an in-browser sample machine and step-sequencer
+an in-browser sample machine and visualizer
