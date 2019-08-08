@@ -3,39 +3,10 @@ import styled from 'styled-components'
 import { setCurrentSound } from '../../actions/samplerActions'
 import { connect } from 'react-redux'
 
-
-const Button = styled.button`
-  margin: 10px;
-  font-family: Times;
-  background-color: DimGrey;
-  height:7em;
-  width:7em;
-  position: relative
-  border-radius: 20px;
-  overflow: hidden
-  &:hover {
-    background: #555;
-  }
-`
-
-const ButtonText = styled.p`
-  font-family: Arial
-  font-size: 15px
-  line-height: 15px
-  width: 45px
-  color: #005995
-  position: absolute;
-  bottom: 0px;
-  right: 15px;
-  border: 0;
-  text-align: right
-  word-wrap: break-word;
-`
-
 class Pad extends Component {
 
-  constructor(props){
-    super(props)
+  constructor(){
+    super()
     this.state = {
       bgColor: "#fbf579"
     }
@@ -100,3 +71,31 @@ class Pad extends Component {
 }
 
 export default connect(null, {setCurrentSound})(Pad);
+
+const Button = styled.button`
+  margin: 10px;
+  font-family: Times;
+  background-color: DimGrey;
+  height:7em;
+  width:7em;
+  position: relative
+  border-radius: 20px;
+  overflow: hidden
+  &:hover {
+    background: #555;
+  }
+`
+
+const ButtonText = styled.p`
+  font-family: Arial
+  font-size: 15px
+  line-height: 15px
+  width: 45px
+  color: #005995
+  position: absolute;
+  bottom: 0px;
+  right: 15px;
+  border: 0;
+  text-align: right
+  word-wrap: break-word;
+`
