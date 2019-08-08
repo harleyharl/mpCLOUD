@@ -4,7 +4,7 @@ class Soundkit < ApplicationRecord
   # validate :validate_size
   #
   # def validate_size
-  #   errors.add(:size, "too much") if sounds.size < 5
+  #   errors.add(:errors, "too much") if sounds.size < 5
   # end
 
   has_many :sounds, dependent: :destroy
