@@ -8,7 +8,7 @@ div.SoundkitForm div.inline-error {
 
 div.SoundkitForm ul.selected-sounds {
   flex-wrap: wrap;
-  padding: 0;
+  padding: 30px;
   list-style-type: none;
   display: flex;
   margin-top: 10px;
