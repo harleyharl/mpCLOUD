@@ -3,35 +3,9 @@ import styled from 'styled-components'
 import Pad from './Pad'
 import Container from 'react-bootstrap/Container'
 
-const Button = styled.button`
-  background-color: #D4D4DC;
-  height:7em;
-  width:7em;
-  position: relative
-  border-radius: 20px;
-  border: 0;
-  background: none;
-  box-shadow: none;
-  border-radius: 20px;
-  border: 1px
-  border-style: dotted;
-`
-
-const ButtonText = styled.div`
-  font-family: Arial;
-  font-size: 12px;
-  line-height: 12px;
-  width: 6.5em;
-  color: #005995;
-  position: absolute;
-  right: 15px;
-  top: 7px
-`
-
 class Pads extends Component {
 
   renderPads = () => this.props.sounds.map((sound, index) => <Pad analyser={this.props.analyser} context={this.props.context} index={index} sound={sound} key={sound.id} url={sound.url} name={sound.name} letter={(this.assignLetter(index))} />)
-
 
   assignLetter = (index) => {
     if (index === 0) {
@@ -70,7 +44,6 @@ class Pads extends Component {
   }
 
   render() {
-    console.log(this.props)
     return(
       <Container >
         {this.renderPads()}
@@ -83,3 +56,29 @@ class Pads extends Component {
 };
 
 export default Pads;
+
+const Button = styled.button`
+  background-color: #D4D4DC;
+  height:7em;
+  width:7em;
+  position: relative
+  border-radius: 20px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 20px;
+  border: 1px
+  border-style: dotted;
+  word-wrap: break-word;
+`
+
+const ButtonText = styled.div`
+  font-family: Arial;
+  font-size: 12px;
+  line-height: 12px;
+  width: 6.5em;
+  color: #005995;
+  position: absolute;
+  right: 15px;
+  top: 7px
+`
