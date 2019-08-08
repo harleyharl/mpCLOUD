@@ -8,7 +8,6 @@ import './PadContainer.css'
 class PadContainer extends Component {
 
   render() {
-    console.log(this.props)
     return (
       <Container className="text-center">
         <Pads currentSoundkit={this.props.currentSoundkit} analyser={this.props.analyser} context={this.props.context} sounds={this.props.currentSoundkit.sounds}/>
