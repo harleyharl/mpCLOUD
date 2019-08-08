@@ -14,12 +14,12 @@ class SoundkitForm extends Component {
       id: this.props.match.params.id,
       name: '',
       description: '',
-      errors: {}
-    }
+    },
+    descriptionError: '',
+    nameError: ''
   };
 
   componentWillMount() {
-    // only runs on edit
     if (this.props.match.params.id) {
       axiosClient.get(`/soundkits/${this.props.match.params.id}`).then(response => {
         this.setState({
@@ -28,7 +28,6 @@ class SoundkitForm extends Component {
             id: response.data[0].id,
             name: response.data[0].name,
             description: response.data[0].description,
-            errors: response.data[0].errors
           }
         });
       });
@@ -38,37 +37,32 @@ class SoundkitForm extends Component {
 handleSoundkitNameChange(e) {
   let { soundkit } = this.state;
   soundkit.name = e.target.value;
+  this.setErrors()
   this.setState({ soundkit: soundkit });
 }
 
 handleSoundkitDescriptionChange(e) {
   let { soundkit } = this.state;
   soundkit.description = e.target.value;
+  this.setErrors()
   this.setState({ soundkit: soundkit });
 }
 
 renderSoundkitNameInlineError() {
-  if (this.state.soundkit.errors.name) {
-    return (
-      <div className="inline-error alert alert-danger">
-        {this.state.soundkit.errors.name.join(', ')}
-      </div>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <div>
+      {this.state.nameError}
+    </div>
+  )
 }
 
+
 renderSoundkitDescriptionInlineError() {
-  if (this.state.soundkit.errors.description) {
-    return (
-      <div className="inline-error alert alert-danger">
-        {this.state.soundkit.errors.description.join(', ')}
-      </div>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <div>
+      {this.state.descriptionError}
+    </div>
+  );
 }
 
 getNumberOfSelectedFiles() {
@@ -180,36 +174,58 @@ removeSelectedSoundkitSoundFile(sound, index) { //marks sound file with _destroy
 }
 
 handleCancel() {
-  this.props.history.push('/soundkits');
+  this.props.history.push('/');
+}
+
+setErrors() {
+  if (this.state.soundkit.description === "") {
+      this.setState({descriptionError: "please enter a description for this soundkit"})
+    } else if (this.state.soundkit.description.length > 30) {
+      this.setState({descriptionError: "You must enter a shorter description for this soundkit"})
+    } else {
+      this.setState({descriptionError: ""})
+    }
+
+  if (this.state.soundkit.name === "") {
+      this.setState({nameError: "please enter a name for this soundkit"})
+    } else if (this.state.soundkit.name.length > 10) {
+      this.setState({nameError: "You must enter a shorter name for this soundkit"})
+    } else {
+      this.setState({nameError: ""})
+    }
 }
 
 handleFormSubmit() {
-  let { soundkit } = this.state;
-  soundkit.errors = {};
-  this.setState(
-    {
-      isSubmittingForm: true,
-      soundkit: soundkit
-    },
-    () => {
-      this.submitForm();
-    }
-  );
+  this.setErrors()
+  let nameError = this.state.nameError
+  let descriptionError = this.state.descriptionError
+  if (!nameError && !descriptionError) {
+    let { soundkit } = this.state;
+    this.setState(
+      {
+        isSubmittingForm: true,
+        soundkit: soundkit
+      },
+      () => {
+        this.submitForm();
+      }
+    );
+  } else {
+    debugger
+  }
 }
 
 buildFormData() {
   let formData = new FormData();
-  // debugger
   formData.append('soundkit[name]', this.state.soundkit.name);
   formData.append('soundkit[description]', this.state.soundkit.description);
-// debugger. for some reason "let" doesn't work here!
-  var selectedSoundkitSoundFiles = this.state.selectedSoundkitSoundFiles;
+  let selectedSoundkitSoundFiles = this.state.selectedSoundkitSoundFiles;
   for (let i = 0; i < selectedSoundkitSoundFiles.length; i++) {
     let file = selectedSoundkitSoundFiles[i];
     if (file.id) {
       if (file._destroy) {
-        formData.append(`soundkit[sounds_attributes][${i}][id]`, file.id); // this will be annoying
-        formData.append(`soundkit[sounds_attributes][${i}][_destroy]`, '1'); // this is going to be annoying..
+        formData.append(`soundkit[sounds_attributes][${i}][id]`, file.id);
+        formData.append(`soundkit[sounds_attributes][${i}][_destroy]`, '1');
       }
     } else {
       formData.append(
@@ -227,7 +243,7 @@ buildFormData() {
 }
 
 submitForm() {
-  let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing or adding
+  let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing record or creating new one
   let url = this.state.soundkit.id
     ? `/soundkits/${this.state.soundkit.id}.json`
     : '/soundkits.json';
@@ -237,20 +253,16 @@ submitForm() {
         this.setState({
           submitFormProgress: percentage
         });
-        debugger
       }
     })
     .then(response => {
       this.setState({
         didFormSubmissionComplete: true
       });
-      // debugger
       this.props.history.push('/');
     })
     .catch(error => {
-      // debugger
       let { soundkit } = this.state;
-      soundkit.errors = error.response.data;
       this.setState({
         isSubmittingForm: false,
         submitFormProgress: 0,
@@ -279,6 +291,18 @@ renderUploadFormProgress() {
       </div>
     </div>
   );
+}
+
+isFormValid() {
+  // returns false if there are any errors or form is submitting
+  return (!!this.state.descriptionError || !!this.state.nameError || !!this.state.isSubmittingForm || this.isAFieldEmpty())
+}
+
+isAFieldEmpty() {
+  // returns true if one or both fields are empty
+  let description = this.state.soundkit.description
+  let name = this.state.soundkit.name
+  return (name.length === 0 && description.length === 0)
 }
 
   render() {
@@ -311,7 +335,8 @@ renderUploadFormProgress() {
           </div>
           {this.renderUploadFormProgress()}
           <button
-            disabled={this.state.isSubmittingForm}
+            id="saveButton"
+            disabled={this.isFormValid()}
             onClick={e => this.handleFormSubmit()}
             className="btn btn-outline-warning form-button">
             {this.state.isSubmittingForm ? 'Saving...' : 'Save'}
@@ -328,7 +353,7 @@ renderUploadFormProgress() {
       </div>
     );
   }
-
 }
 
-export default SoundkitForm;
+
+export default SoundkitForm
