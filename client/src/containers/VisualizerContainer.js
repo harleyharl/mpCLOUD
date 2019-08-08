@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container'
 import './visualizerContainer.css'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -7,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 class VisualizerContainer extends Component {
 
-  constructor(props){
-    super(props)
+  constructor(){
+    super()
     this.createVisualization = this.createVisualization.bind(this)
   }
 
@@ -45,14 +44,14 @@ class VisualizerContainer extends Component {
   render() {
     return (
       <div className="visualizerContainer text-center" align-content="center">
-            <canvas
-                height="200px"
-                ref="analyzerCanvas"
-                id="analyzer"
-                position="fixed"
-                width="300%"
-                >
-            </canvas>
+        <canvas
+            height="200px"
+            ref="analyzerCanvas"
+            id="analyzer"
+            position="fixed"
+            width="300%"
+            >
+        </canvas>
       </div>
     )
   }
