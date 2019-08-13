@@ -11,14 +11,6 @@ import NavBar from './components/NavBar'
 
 class App extends Component {
 
-  constructor(props){
-    super(props)
-    this.state = {
-      soundKits: [],
-      currentSoundkit: null
-    }
-  }
-
   componentDidMount(){
     this.props.fetchSoundkits()
     this.props.clearCurrentSoundkit()
@@ -51,7 +43,6 @@ class App extends Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   soundKits: state.soundKits,
