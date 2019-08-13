@@ -1,42 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setCurrentSoundkit, fetchSounds, removeSoundkit  } from '../actions/samplerActions'
+import { setCurrentSoundkit, removeSoundkit  } from '../actions/samplerActions'
 import Button from 'react-bootstrap/Button'
 import './SoundkitContainer.css'
 
-
 class SoundKitContainer extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-      currentSoundkit: null,
-      soundKits: []
-    }
-  }
-
-  componentDidMount() {
-    this.setState({ soundKits: this.props.soundKits,
-      currentSoundkit: null
-    });
-  }
-
-  handleChange(event) {
-    this.setState({currentSoundkit: event.target.value})
-  }
-
-  render() {
-    return (
-      <div className="soundkitContainer">
-        <ul className="soundKitList">
-            {this.renderTableBody()}
-        </ul>
-      </div>
-    );
-  }
 
   handleNewSoundkit() {
     this.props.history.push('/new');
+  }
+
+  handleEdit(soundkitId) {
+    this.props.history.push(`/soundkits/${soundkitId}/edit`);
+  }
+
+  handleRemove(soundkitId) {
+    this.props.removeSoundkit(soundkitId)
+    }
+
+  handleLoad(soundkitId) {
+    const soundkit = this.props.soundKits.soundKits.filter(soundkit => soundkit.id === soundkitId)[0]
+    this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
   }
 
   renderTableBody() {
@@ -62,21 +46,16 @@ class SoundKitContainer extends Component {
     }
   }
 
-  handleEdit(soundkitId) {
-    this.props.history.push(`/soundkits/${soundkitId}/edit`);
-  }
-
-  handleRemove(soundkitId) {
-    this.props.removeSoundkit(soundkitId)
-    }
-
-  handleLoad(soundkitId) {
-    var soundkit = this.props.soundKits.soundKits.filter(soundkit => soundkit.id === soundkitId)[0]
-    this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
+  render() {
+    return (
+      <div className="soundkitContainer">
+        <ul className="soundKitList">
+            {this.renderTableBody()}
+        </ul>
+      </div>
+    );
   }
 }
-
-
 
 const mapStateToProps = state => ({
   soundKits: state.soundKits,
@@ -84,4 +63,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { fetchSounds, setCurrentSoundkit, removeSoundkit })(SoundKitContainer);
+export default connect(mapStateToProps, { setCurrentSoundkit, removeSoundkit })(SoundKitContainer);
