@@ -19,6 +19,7 @@ class SoundkitsController < ApplicationController
   end
 
   def create
+    # binding.pry
     @soundkit = Soundkit.new(soundkit_params)
     @soundkit.sounds.each do |sound|
       sound.url = url_for(sound.sound_file)
