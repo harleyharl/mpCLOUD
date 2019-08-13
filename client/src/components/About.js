@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './about.css'
 import NavBar from './NavBar'
 
-
-class About extends Component {
-
-  render() {
+const About = (props) => {
     return (
       <div>
-      <NavBar history={this.props.history} />
+      <NavBar history={props.history} />
         <div className='about'>
           <h1>How to use MPCloud:</h1>
           <h2>Quick Start</h2>
@@ -25,7 +22,5 @@ class About extends Component {
       </div>
     );
   }
-
-}
 
 export default About;
