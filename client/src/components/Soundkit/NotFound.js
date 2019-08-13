@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import NavBar from '../NavBar.js'
+import './NotFound.css'
 
-class NotFound extends Component {
-
-  render() {
-    return (
-      <div>That route is not available</div>
-    );
-  }
-
+const NotFound = (props) => {
+  return (
+    <div>
+    <NavBar history={props.history}/>
+      <div className="notFoundContainer">
+        <p>Sorry, theres nothing here!</p>
+      </div>
+    </div>
+  );
 }
 
 export default NotFound;
