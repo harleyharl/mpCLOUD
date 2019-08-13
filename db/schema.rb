@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_18_191446) do
+ActiveRecord::Schema.define(version: 2019_08_12_175356) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 2019_07_18_191446) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "recordings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.integer "user_id"
-  end
-
   create_table "soundkits", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -54,21 +47,6 @@ ActiveRecord::Schema.define(version: 2019_07_18_191446) do
     t.integer "soundkit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "user_soundkits", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "soundkit_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "username"
-    t.string "password_digest"
-    t.string "email_address"
   end
 
 end
