@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import './visualizerContainer.css'
-import 'bootstrap/dist/css/bootstrap.css';
-
-
 
 class VisualizerContainer extends Component {
 
@@ -11,9 +8,9 @@ class VisualizerContainer extends Component {
     this.createVisualization = this.createVisualization.bind(this)
   }
 
-    componentDidUpdate(){
-      this.createVisualization()
-    }
+  componentDidUpdate(){
+    this.createVisualization()
+  }
 
   createVisualization(){
     let analyser = this.props.analyser;
@@ -30,7 +27,7 @@ class VisualizerContainer extends Component {
         ctx.clearRect(0, 0, canvas.width, canvas.height) // clears
         ctx.fillStyle = 'white';
         let bars = 1024;
-        for (var i = 0; i < bars; i++) {
+        for (let i = 0; i < bars; i++) {
             let bar_x = i * 3;
             let bar_width = 1.5;
             let bar_height = -(freqData[(i)] - 50);
