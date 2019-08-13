@@ -5,11 +5,17 @@ import { connect } from 'react-redux'
 
 class Pad extends Component {
 
-  constructor(){
-    super()
-    this.state = {
-      bgColor: "#fbf579"
-    }
+  state = {
+    bgColor: "#fbf579"
+  }
+
+  componentDidMount(){
+    document.addEventListener('keypress', this.handleKeyDown)
+    let audioElement = document.getElementById(this.props.sound.id)
+    audioElement.crossOrigin = "anonymous"
+    let mediaElementSource = this.props.context.createMediaElementSource(audioElement)
+    mediaElementSource.connect(this.props.context.destination)
+    mediaElementSource.connect(this.props.analyser)
   }
 
   changeColor = (color) => {
@@ -31,16 +37,6 @@ class Pad extends Component {
     setTimeout(() => this.changeColorBack(), 50);
   }
 
-
-  componentDidMount(){
-    document.addEventListener('keypress', this.handleKeyDown)
-    let audioElement = document.getElementById(this.props.sound.id)
-    audioElement.crossOrigin = "anonymous"
-    let mediaElementSource = this.props.context.createMediaElementSource(audioElement)
-    mediaElementSource.connect(this.props.context.destination)
-    mediaElementSource.connect(this.props.analyser)
-  }
-
   handleKeyDown = (e) => {
     if (e.charCode === this.props.letter.charCodeAt()) {
       if (this.audio) {
@@ -56,14 +52,14 @@ class Pad extends Component {
   render() {
     return (
       <Button title={this.props.sound.name} type="button" onClick={this.handleClick} style={{backgroundColor: this.state.bgColor}}>
-      <ButtonText> {this.props.letter} </ButtonText>
-      <audio
-        className="pad"
-        ref={ref => this.audio = ref}
-        src={this.props.url}
-        id={this.props.sound.id}
-        >
-      </audio>
+        <ButtonText> {this.props.letter} </ButtonText>
+        <audio
+          className="pad"
+          ref={ref => this.audio = ref}
+          src={this.props.url}
+          id={this.props.sound.id}
+          >
+        </audio>
       </Button>
     );
   }
