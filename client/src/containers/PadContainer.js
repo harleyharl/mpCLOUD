@@ -1,24 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Pads from '../components/Pads/Pads'
-import { connect } from 'react-redux'
 import Container from 'react-bootstrap/Container'
 import './PadContainer.css'
 
-
-class PadContainer extends Component {
-
-  render() {
+const PadContainer = props => {
     return (
       <Container className="text-center">
-        <Pads currentSoundkit={this.props.currentSoundkit} analyser={this.props.analyser} context={this.props.context} sounds={this.props.currentSoundkit.sounds}/>
+        <Pads currentSoundkit={props.currentSoundkit} analyser={props.analyser} context={props.context} sounds={props.currentSoundkit.sounds}/>
       </Container>
     );
   }
 
-}
-
-const mapStateToProps = state => ({
-  currentSoundkit: state.soundKits.currentSoundkit
-})
-
-export default connect(mapStateToProps)(PadContainer);
+export default PadContainer;
