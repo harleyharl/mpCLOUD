@@ -71,6 +71,19 @@ class SoundkitForm extends Component {
     }
   }
 
+  removeSelectedSoundkitSoundFile(sound, index) { //marks sound file with _destroy when its clicked
+  let { selectedSoundkitSoundFiles } = this.state;
+  if (sound.id) { // cover file that has been uploaded will be marked as destroy
+    selectedSoundkitSoundFiles[index]._destroy = true;
+  } else {
+    selectedSoundkitSoundFiles.splice(index, 1);
+  }
+
+  this.setState({
+    selectedSoundkitSoundFiles: selectedSoundkitSoundFiles
+  });
+}
+
   handleCancel() {
     this.props.history.push('/');
   }
