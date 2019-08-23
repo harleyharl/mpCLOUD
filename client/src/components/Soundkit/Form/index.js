@@ -2,6 +2,8 @@ import './index.css';
 import React, { Component } from 'react';
 import axiosClient from '../../../axiosClient';
 import soundImage from '../../../images/soundImage.png'
+import { connect } from 'react-redux'
+import { addNewSoundkit, editSoundkit } from '../../../actions/samplerActions.js'
 
 class SoundkitForm extends Component {
 
@@ -13,7 +15,7 @@ class SoundkitForm extends Component {
     soundkit: {
       id: this.props.match.params.id,
       name: '',
-      description: '',
+      description: ''
     },
     descriptionError: '',
     nameError: '',
@@ -38,14 +40,14 @@ class SoundkitForm extends Component {
   handleSoundkitNameChange(e) {
     let { soundkit } = this.state;
     soundkit.name = e.target.value;
-    this.setErrors()
+    this.setNameErrors()
     this.setState({ soundkit: soundkit });
   }
 
   handleSoundkitDescriptionChange(e) {
     let { soundkit } = this.state;
     soundkit.description = e.target.value;
-    this.setErrors()
+    this.setDescriptionErrors()
     this.setState({ soundkit: soundkit });
   }
 
@@ -71,25 +73,7 @@ class SoundkitForm extends Component {
     }
   }
 
-  removeSelectedSoundkitSoundFile(sound, index) { //marks sound file with _destroy when its clicked
-  let { selectedSoundkitSoundFiles } = this.state;
-  if (sound.id) { // cover file that has been uploaded will be marked as destroy
-    selectedSoundkitSoundFiles[index]._destroy = true;
-  } else {
-    selectedSoundkitSoundFiles.splice(index, 1);
-  }
-
-  this.setState({
-    selectedSoundkitSoundFiles: selectedSoundkitSoundFiles
-  });
-}
-
-  handleCancel() {
-    this.props.history.push('/');
-  }
-
   handleFormSubmit() {
-    this.setErrors()
     let nameError = this.state.nameError
     let descriptionError = this.state.descriptionError
     if (!nameError && !descriptionError) {
@@ -106,47 +90,82 @@ class SoundkitForm extends Component {
     }
   }
 
-  setErrors() {
-    if (this.state.soundkit.description === "") {
-        this.setState({descriptionError: "please enter a description for this soundkit"})
-      } else if (this.state.soundkit.description.length > 30) {
-        this.setState({descriptionError: "You must enter a shorter description for this soundkit"})
+  buildFormData() {
+    let formData = new FormData();
+    formData.append('soundkit[name]', this.state.soundkit.name);
+    formData.append('soundkit[description]', this.state.soundkit.description);
+    let selectedSoundkitSoundFiles = this.state.selectedSoundkitSoundFiles;
+    for (let i = 0; i < selectedSoundkitSoundFiles.length; i++) {
+      let file = selectedSoundkitSoundFiles[i];
+      if (file.id) {
+        if (file._destroy) {
+          formData.append(`soundkit[sounds_attributes][${i}][id]`, file.id);
+          formData.append(`soundkit[sounds_attributes][${i}][_destroy]`, '1');
+        }
       } else {
-        this.setState({descriptionError: ""})
+        formData.append(
+          `soundkit[sounds_attributes][${i}][sound_file]`,
+          file,
+          file.name
+        );
+        formData.append(
+          `soundkit[sounds_attributes][${i}][name]`,
+          file.name
+        )
       }
+    }
+    return formData;
+  }
 
-    if (this.state.soundkit.name === "") {
-        this.setState({nameError: "please enter a name for this soundkit"})
-      } else if (this.state.soundkit.name.length > 10) {
-        this.setState({nameError: "You must enter a shorter name for this soundkit"})
-      } else {
-        this.setState({nameError: ""})
+  submitForm() {
+    let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing record or creating new one
+    let url = this.state.soundkit.id
+      ? `/soundkits/${this.state.soundkit.id}.json`
+      : '/soundkits.json';
+    axiosClient[submitMethod](url, this.buildFormData(), {
+      onUploadProgress: progressEvent => {
+        let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
+        this.setState({
+          submitFormProgress: percentage
+        });
       }
+    })
+    .then(response => {
+      this.setState({
+        didFormSubmissionComplete: true
+      });
+      this.props.history.push('/');
+    })
+
+    // let formData = this.buildFormData()
+    // let history = this.props.history
+    //
+    // if (submitMethod === 'POST') {
+    //   this.props.addNewSoundkit(url, submitMethod, formData, history)
+    // } else if (submitMethod === 'PATCH'){
+    //   let soundkit = this.state.soundkit
+    //   debugger
+    //   // soundkit.sounds = this.state.selectedSoundkitSoundFiles
+    //   this.props.editSoundkit(url, submitMethod, formData, history)
+    // }
   }
 
-  renderSoundkitNameInlineError() {
-    return (
-      <div>
-        {this.state.nameError}
-      </div>
-    )
+  handleCancel() {
+    this.props.history.push('/');
   }
 
-  renderSoundkitDescriptionInlineError() {
-    return (
-      <div>
-        {this.state.descriptionError}
-      </div>
-    );
+  removeSelectedSoundkitSoundFile(sound, index) { //marks sound file with _destroy when its clicked
+  let { selectedSoundkitSoundFiles } = this.state;
+  if (sound.id) { // cover file that has been uploaded will be marked as destroy
+    selectedSoundkitSoundFiles[index]._destroy = true;
+  } else {
+    selectedSoundkitSoundFiles.splice(index, 1);
   }
 
-  renderFileInlineError() {
-    return (
-      <div>
-        {this.state.fileError}
-      </div>
-    );
-  }
+  this.setState({
+    selectedSoundkitSoundFiles: selectedSoundkitSoundFiles
+  });
+}
 
   getNumberOfSelectedFiles() {
     return this.state.selectedSoundkitSoundFiles.filter(el => {
@@ -246,62 +265,6 @@ class SoundkitForm extends Component {
     );
   }
 
-  buildFormData() {
-    let formData = new FormData();
-    formData.append('soundkit[name]', this.state.soundkit.name);
-    formData.append('soundkit[description]', this.state.soundkit.description);
-    let selectedSoundkitSoundFiles = this.state.selectedSoundkitSoundFiles;
-    for (let i = 0; i < selectedSoundkitSoundFiles.length; i++) {
-      let file = selectedSoundkitSoundFiles[i];
-      if (file.id) {
-        if (file._destroy) {
-          formData.append(`soundkit[sounds_attributes][${i}][id]`, file.id);
-          formData.append(`soundkit[sounds_attributes][${i}][_destroy]`, '1');
-        }
-      } else {
-        formData.append(
-          `soundkit[sounds_attributes][${i}][sound_file]`,
-          file,
-          file.name
-        );
-        formData.append(
-          `soundkit[sounds_attributes][${i}][name]`,
-          file.name
-        )
-      }
-    }
-    return formData;
-  }
-
-  submitForm() {
-    let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing record or creating new one
-    let url = this.state.soundkit.id
-      ? `/soundkits/${this.state.soundkit.id}.json`
-      : '/soundkits.json';
-    axiosClient[submitMethod](url, this.buildFormData(), {
-        onUploadProgress: progressEvent => {
-          let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
-          this.setState({
-            submitFormProgress: percentage
-          });
-        }
-      })
-      .then(response => {
-        this.setState({
-          didFormSubmissionComplete: true
-        });
-        this.props.history.push('/');
-      })
-      .catch(error => {
-        let { soundkit } = this.state;
-        this.setState({
-          isSubmittingForm: false,
-          submitFormProgress: 0,
-          soundkit: soundkit
-        });
-      });
-  }
-
   isFormValid() {
     // returns false if there are any errors or form is submitting
     return (!!this.state.descriptionError || !!this.state.nameError || !!this.state.isSubmittingForm || this.isAFieldEmpty())
@@ -311,7 +274,51 @@ class SoundkitForm extends Component {
     // returns true if one or both fields are empty
     let description = this.state.soundkit.description
     let name = this.state.soundkit.name
-    return (name.length === 0 && description.length === 0)
+    return (name.length === 0 || description.length === 0)
+  }
+
+  setNameErrors() {
+    if (this.state.soundkit.name === "") {
+        this.setState({nameError: "please enter a name for this soundkit"})
+      } else if (this.state.soundkit.name.length > 10) {
+        this.setState({nameError: "You must enter a shorter name for this soundkit"})
+      } else {
+        this.setState({nameError: ""})
+      }
+  }
+
+  setDescriptionErrors() {
+    if (this.state.soundkit.description === "") {
+        this.setState({descriptionError: "please enter a description for this soundkit"})
+      } else if (this.state.soundkit.description.length > 30) {
+        this.setState({descriptionError: "You must enter a shorter description for this soundkit"})
+      } else {
+        this.setState({descriptionError: ""})
+      }
+  }
+
+  renderSoundkitNameInlineError() {
+    return (
+      <div>
+        {this.state.nameError}
+      </div>
+    )
+  }
+
+  renderSoundkitDescriptionInlineError() {
+    return (
+      <div>
+        {this.state.descriptionError}
+      </div>
+    );
+  }
+
+  renderFileInlineError() {
+    return (
+      <div>
+        {this.state.fileError}
+      </div>
+    );
   }
 
   render() {
@@ -343,7 +350,6 @@ class SoundkitForm extends Component {
             {this.renderUploadSoundsButton()}
             {this.renderSelectedSoundkitSoundFiles()}
           </div>
-          {this.renderUploadFormProgress()}
           <button
             id="saveButton"
             disabled={this.isFormValid()}
@@ -365,5 +371,4 @@ class SoundkitForm extends Component {
   }
 }
 
-
-export default SoundkitForm
+export default connect( null, { addNewSoundkit, editSoundkit } )(SoundkitForm)
