@@ -14,18 +14,32 @@ class SoundkitsController < ApplicationController
 
   def update
     id = params[:id]
-    @soundkit = Soundkit.where(id: id)
+    @soundkit = Soundkit.find_by(id: id)
     @soundkit.update(soundkit_params)
+    @soundkit.sounds.each do |sound|
+      if sound.url == nil
+        sound.url = url_for(sound.sound_file)
+      end
+    end
+    if @soundkit.save
+      render(
+        status: 200,
+        json: @soundkit
+      )
+    end
   end
 
   def create
-    # binding.pry
     @soundkit = Soundkit.new(soundkit_params)
     @soundkit.sounds.each do |sound|
       sound.url = url_for(sound.sound_file)
     end
-    #if we can save the soundkit
-    @soundkit.save
+    if @soundkit.save
+      render(
+        status: 200,
+        json: @soundkit
+      )
+    end
   end
 
   def destroy
@@ -40,6 +54,7 @@ class SoundkitsController < ApplicationController
   end
 
   def soundkit_params
+    # binding.pry
     params.require(:soundkit).permit([:name, :description, sounds_attributes: %I[id name sound_file _destroy]])
   end
 
