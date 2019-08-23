@@ -23,12 +23,13 @@ export function setCurrentSoundkit(soundkit) {
 }
 
 export function removeSoundkit(soundkitId, data={}) {
+  debugger
   return (dispatch) => {
     return fetch(`/api/soundkits/${soundkitId}`, {
         method: 'DELETE',
         body: JSON.stringify(data),
     })
-    .then(response => response.json()) 
+    .then(response => response.json())
     .then(json => dispatch({ type: 'REMOVE_SOUNDKIT', payload: json}))
   }
 }
@@ -42,5 +43,37 @@ export function clearCurrentSoundkit() {
 export function setCurrentSound(soundUrl) {
   return (dispatch) => {
     dispatch({ type: 'SET_CURRENT_SOUND', soundUrl })
+  };
+}
+
+
+export function addNewSoundkit(url, submitMethod, formData, history) {
+  return (dispatch) => {
+    dispatch({ type: 'ADDING_SOUNDKIT' });
+    return fetch(url, {
+        method: submitMethod,
+        body: formData
+    })
+    .then(response => response.json())
+    // we need to wait for the fetch request to complete because were getting a url from the server
+    .then(json => dispatch({ type: 'ADD_NEW_SOUNDKIT', payload: json}))
+    .then(history.push('/'))
+  };
+}
+
+// add catch for the fetch and error for server errors
+
+export function editSoundkit(url, submitMethod, formData, history) {
+  debugger
+  return (dispatch) => {
+    dispatch({ type: 'EDITING_SOUNDKIT' });
+    return fetch(url, {
+        method: submitMethod,
+        body: formData
+    })
+    .then(response => response.json()) // a single soundkit with sounds that have names and urls (urls given by the server's active storage system)
+    // we need to wait for the fetch request to complete because were getting a url from the server
+    .then(json => dispatch({ type: 'EDITED_SOUNDKIT', payload: json}))
+    .then(history.push('/'))
   };
 }
