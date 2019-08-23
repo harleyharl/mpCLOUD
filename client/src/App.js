@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PadContainer from './containers/PadContainer'
 import SoundKitContainer from './containers/SoundKitContainer'
 import VisualizerContainer from './containers/VisualizerContainer'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit  } from './actions/samplerActions'
 import Row from 'react-bootstrap/Row'
@@ -12,13 +13,15 @@ import NavBar from './components/NavBar'
 class App extends Component {
 
   componentDidMount(){
-    this.props.fetchSoundkits()
+    if (this.props.soundKits.soundKits.length === 0) {
+      this.props.fetchSoundkits()
+    }
     this.props.clearCurrentSoundkit()
   }
 
-  renderPadContainer = (context, analyser) => (
-    this.props.soundKits.currentSoundkit ? <PadContainer analyser={analyser} context={context} currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null
-  )
+  renderPadContainer(context, analyser){
+    return (this.props.soundKits.currentSoundkit ? <PadContainer analyser={analyser} context={context} currentSoundkit={this.props.soundKits.currentSoundkit} sounds={this.props.soundKits.currentSoundkit.sounds} /> : null)
+  }
 
   render() {
     const context = new AudioContext()
@@ -29,10 +32,10 @@ class App extends Component {
         <div className='mainContainer'>
           <Row className="spacer-normal">
             <Col>
-              <SoundKitContainer analyser={analyser} onChange={this.handleOnChange} history={this.props.history}/>
+              <SoundKitContainer key="soundkitContainer" history={this.props.history} analyser={analyser} onChange={this.handleOnChange} />
             </Col>
             <Col>
-              <VisualizerContainer analyser={analyser} context={context} onChange={this.handleOnChange} history={this.props.history}/>
+              <VisualizerContainer analyser={analyser} context={context} onChange={this.handleOnChange} />
             </Col>
           </Row>
           <Row className="spacer-normal">
@@ -49,4 +52,4 @@ const mapStateToProps = state => ({
   currentSoundkit: state.currentSoundkit
 })
 
-export default connect(mapStateToProps, {fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit})(App);
+export default withRouter(connect(mapStateToProps, {fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit})(App))
