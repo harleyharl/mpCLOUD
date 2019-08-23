@@ -14,7 +14,7 @@ const Root = ({ store }) =>
 <Provider store={store}>
   <Router history={history}>
     <Switch>
-      <Route exact path="/" component={App}/>
+      <Route exact path="/" component={App} />
       <Route path="/new" component={SoundkitNew} />
       <Route path="/soundkits/:id/edit" component={SoundkitEdit} />
       <Route path="/about" component={About} />
