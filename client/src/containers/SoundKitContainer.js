@@ -3,48 +3,29 @@ import { connect } from 'react-redux'
 import { setCurrentSoundkit, removeSoundkit  } from '../actions/samplerActions'
 import Button from 'react-bootstrap/Button'
 import './SoundkitContainer.css'
+import Soundkit from './Soundkit.js'
 
 class SoundKitContainer extends Component {
+
 
   handleNewSoundkit() {
     this.props.history.push('/new');
   }
 
-  handleEdit(soundkitId) {
-    this.props.history.push(`/soundkits/${soundkitId}/edit`);
-  }
-
-  handleRemove(soundkitId) {
-    this.props.removeSoundkit(soundkitId)
-    }
-
-  handleLoad(soundkitId) {
-    const soundkit = this.props.soundKits.soundKits.filter(soundkit => soundkit.id === soundkitId)[0]
-    this.props.setCurrentSoundkit(soundkit) // passes the soundkit selected up to the store
-  }
-
   renderTableBody() {
-    if (this.props.soundKits.soundKits) {
-      return this.props.soundKits.soundKits.map(soundkit => {
+    // debugger
+    console.log("rendeering table body")
+    if (this.props.loading === true) {
+      return "Loading Soundkits..."
+    } else if (this.props.soundKits) {
+      return this.props.soundKits.map(soundkit => {
         return (
-            <li value={soundkit.id} >
-              <div className="align-center"><p>{soundkit.name}</p></div>
-              <div className="buttons-container">
-                <div className="button-container">
-                  <Button variant="outline-primary" onClick={e => this.handleLoad(soundkit.id)} ><p>Load</p></Button>
-                </div>
-                <div className="button-container">
-                  <Button variant="outline-warning" onClick={e => this.handleEdit(soundkit.id)}> Edit </Button>
-                </div>
-                <div className="button-container">
-                  <Button variant="outline-danger" onClick={e => this.handleRemove(soundkit.id)}> Remove </Button>
-                </div>
-              </div>
-            </li>
+          <Soundkit id={soundkit.id} soundkit={soundkit} setCurrentSoundkit={this.props.setCurrentSoundkit} history={this.props.history} removeSoundkit={this.props.removeSoundkit}/>
         );
       });
     }
   }
+
 
   render() {
     return (
@@ -58,8 +39,9 @@ class SoundKitContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  soundKits: state.soundKits,
-  currentSoundkit: state.soundKits.currentSoundkit
+  soundKits: state.soundKits.soundKits,
+  currentSoundkit: state.soundKits.currentSoundkit,
+  loading: state.soundKits.loading
 })
 
 
