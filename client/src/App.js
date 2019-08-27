@@ -49,7 +49,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   soundKits: state.soundKits,
-  currentSoundkit: state.currentSoundkit
+  // currentSoundkit: state.soundKits.currentSoundkit
 })
 
 export default withRouter(connect(mapStateToProps, {fetchSoundkits, fetchSounds, removeSoundkit, clearCurrentSoundkit})(App))
