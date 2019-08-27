@@ -20,7 +20,7 @@ export default function soundkitsReducer(state = {
     return { ...state, currentSoundkit: action.payload, loading: false }
 
     case 'REMOVE_SOUNDKIT':
-    return {soundKits: state.soundKits.filter(soundKit => soundKit.id !== action.payload.id)}
+    return {...state, soundKits: state.soundKits.filter(soundKit => soundKit.id !== action.payload.id)}
 
     case 'CLEAR_CURRENT_SOUNDKIT':
     return {...state, currentSoundkit: null}
@@ -37,18 +37,16 @@ export default function soundkitsReducer(state = {
     case 'EDITING_SOUNDKIT':
     return {...state, loading: true}
 
-    case 'EDITED_SOUNDKIT':
-    // action.payload was an array because i had used .where in my controller action!!! duh!!!
-    return {...state, loading: false, soundKits: state.soundKits.map((soundkit, index) => {
-      if (soundkit.id === action.payload[0].id) {
-        debugger
-        return action.payload[0]
-      } else {
-        return soundkit
-      }
-    })
-  }
-
+    case 'EDIT_SOUNDKIT':
+    debugger
+    return {...state, loading: false, soundKits: state.soundKits.map(soundkit => {
+        if (soundkit.id === action.payload.data.id) {
+          return action.payload.data
+        } else {
+          return soundkit
+        }
+      })
+    }
 
   default:
     return state;
