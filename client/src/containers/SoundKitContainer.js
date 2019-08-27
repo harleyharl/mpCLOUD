@@ -5,6 +5,10 @@ import Button from 'react-bootstrap/Button'
 import './SoundkitContainer.css'
 import Soundkit from './Soundkit.js'
 
+import FadeLoader from 'react-spinners/FadeLoader';
+
+import { css } from '@emotion/core';
+
 class SoundKitContainer extends Component {
 
 
@@ -13,11 +17,18 @@ class SoundKitContainer extends Component {
   }
 
   renderTableBody() {
-    // debugger
-    console.log("rendeering table body")
+    debugger
     if (this.props.loading === true) {
-      return "Loading Soundkits..."
-    } else if (this.props.soundKits) {
+      return (<div className="align-center">
+      <div className="loader">
+        <FadeLoader sizeUnit={"px"} size={150} color={'#600473'} loading={this.props.loading}
+      />
+      </div>
+      <div className="loader">
+      loading soundkits...
+      </div>
+    </div>)
+    } else {
       return this.props.soundKits.map(soundkit => {
         return (
           <Soundkit id={soundkit.id} soundkit={soundkit} setCurrentSoundkit={this.props.setCurrentSoundkit} history={this.props.history} removeSoundkit={this.props.removeSoundkit}/>
