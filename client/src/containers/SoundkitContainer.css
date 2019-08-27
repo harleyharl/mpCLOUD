@@ -6,6 +6,11 @@
   overflow-y: scroll;
 }
 
+.loader {
+  display: flex;
+  align-items: center;
+}
+
 .soundKitList {
   list-style-type: none;
   padding: 0;
