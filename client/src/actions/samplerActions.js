@@ -1,3 +1,5 @@
+import axiosClient from '../axiosClient';
+
 export function fetchSoundkits() {
   return (dispatch) => {
     dispatch({ type: 'LOADING_SOUNDKITS' });
@@ -61,19 +63,25 @@ export function addNewSoundkit(url, submitMethod, formData, history) {
   };
 }
 
-// add catch for the fetch and error for server errors
-
 export function editSoundkit(url, submitMethod, formData, history) {
-  debugger
+  // debugger
   return (dispatch) => {
     dispatch({ type: 'EDITING_SOUNDKIT' });
-    return fetch(url, {
-        method: submitMethod,
-        body: formData
+    return axiosClient[submitMethod](url, formData, {
+      // make this dispatch to redux
+      // onUploadProgress: progressEvent => {
+      //   let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
+      //   // this.setState({
+      //   //   submitFormProgress: percentage
+      //   // });
+      // }
     })
-    .then(response => response.json()) // a single soundkit with sounds that have names and urls (urls given by the server's active storage system)
-    // we need to wait for the fetch request to complete because were getting a url from the server
-    .then(json => dispatch({ type: 'EDITED_SOUNDKIT', payload: json}))
+    // .then(response => {
+    //   this.setState({
+    //     didFormSubmissionComplete: true
+    //   });
+    //   this.props.history.push('/');
+    .then(json => dispatch({ type: 'EDIT_SOUNDKIT', payload: json}))
     .then(history.push('/'))
-  };
+  }
 }
