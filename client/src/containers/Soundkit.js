@@ -14,9 +14,8 @@ class Soundkit extends Component {
   }
   //
   handleRemove(soundkitId) {
-    debugger
     this.props.removeSoundkit(soundkitId)
-    }
+  }
 
   handleLoad(soundkitId) {
     const soundkit = this.props.soundkit
