@@ -24,15 +24,14 @@ class SoundkitForm extends Component {
 
   componentDidMount() {
     if (this.props.match.params.id) { // could change this to a fetch request...
-      axiosClient.get(`/soundkits/${this.props.match.params.id}`).then(response => {
-        this.setState({
-          selectedSoundkitSoundFiles: response.data[0].sounds,
-          soundkit: {
-            id: response.data[0].id,
-            name: response.data[0].name,
-            description: response.data[0].description,
-          }
-        });
+      const soundkit = this.props.soundKits.filter(soundkit => (soundkit.id == this.props.match.params.id))[0]
+      this.setState({
+        selectedSoundkitSoundFiles: soundkit.sounds,
+        soundkit: {
+          id: soundkit.id,
+          name: soundkit.name,
+          description: soundkit.description,
+        }
       });
     }
   }
@@ -118,36 +117,35 @@ class SoundkitForm extends Component {
   }
 
   submitForm() {
+    // debugger
     let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing record or creating new one
     let url = this.state.soundkit.id
       ? `/soundkits/${this.state.soundkit.id}.json`
-      : '/soundkits.json';
-    axiosClient[submitMethod](url, this.buildFormData(), {
-      onUploadProgress: progressEvent => {
-        let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
-        this.setState({
-          submitFormProgress: percentage
-        });
-      }
-    })
-    .then(response => {
-      this.setState({
-        didFormSubmissionComplete: true
-      });
-      this.props.history.push('/');
-    })
+      : 'api/soundkits.json';
+    let formData = this.buildFormData()
+    let history = this.props.history
 
-    // let formData = this.buildFormData()
-    // let history = this.props.history
-    //
-    // if (submitMethod === 'POST') {
-    //   this.props.addNewSoundkit(url, submitMethod, formData, history)
-    // } else if (submitMethod === 'PATCH'){
-    //   let soundkit = this.state.soundkit
-    //   debugger
-    //   // soundkit.sounds = this.state.selectedSoundkitSoundFiles
-    //   this.props.editSoundkit(url, submitMethod, formData, history)
-    // }
+    // axiosClient[submitMethod](url, this.buildFormData(), {
+    //   onUploadProgress: progressEvent => {
+    //     let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
+    //     this.setState({
+    //       submitFormProgress: percentage
+    //     });
+    //   }
+    // })
+    // .then(response => {
+    //   dispatch({type: "EDITED_SOUNDKIT", payload: response.json()})
+    //   this.setState({
+    //     didFormSubmissionComplete: true
+    //   });
+    //   this.props.history.push('/');
+    // })
+
+    if (submitMethod === 'post' || submitMethod === 'POST' ) {
+      this.props.addNewSoundkit(url, submitMethod, formData, history)
+    } else if (submitMethod === 'patch' || submitMethod === 'PATCH'){
+      this.props.editSoundkit(url, submitMethod, formData, history)
+    }
   }
 
   handleCancel() {
@@ -371,4 +369,8 @@ class SoundkitForm extends Component {
   }
 }
 
-export default connect( null, { addNewSoundkit, editSoundkit } )(SoundkitForm)
+const mapStateToProps = state => ({
+  soundKits: state.soundKits.soundKits
+})
+
+export default connect( mapStateToProps, { addNewSoundkit, editSoundkit } )(SoundkitForm)
