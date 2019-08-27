@@ -1,14 +1,16 @@
 class Soundkit < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
-  # validate :validate_size
-  #
-  # def validate_size
-  #   errors.add(:errors, "too much") if sounds.size < 5
-  # end
+
+  after_create_commit :set_status_to_saved
+  after_update_commit :set_status_to_saved
 
   has_many :sounds, dependent: :destroy
   accepts_nested_attributes_for :sounds, allow_destroy: true
+
+  def set_status_to_saved
+    self.status = "saved"
+  end
 
   def as_json(_opts = {})
     {
