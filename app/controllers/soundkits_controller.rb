@@ -1,4 +1,5 @@
 class SoundkitsController < ApplicationController
+
   def index
     @soundkits = Soundkit.all
     render json: @soundkits, status: 200
@@ -19,8 +20,10 @@ class SoundkitsController < ApplicationController
     @soundkit.sounds.each do |sound|
       if sound.url == nil
         sound.url = url_for(sound.sound_file)
+        sound.save
       end
     end
+
     if @soundkit.save
       render(
         status: 200,
