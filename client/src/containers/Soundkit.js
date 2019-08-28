@@ -15,6 +15,7 @@ class Soundkit extends Component {
   //
   handleRemove(soundkitId) {
     this.props.removeSoundkit(soundkitId)
+    this.props.clearCurrentSoundkit(soundkitId)
   }
 
   handleLoad(soundkitId) {
