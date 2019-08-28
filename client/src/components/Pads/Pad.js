@@ -11,12 +11,14 @@ class Pad extends Component {
 
   componentDidMount(){
     // debugger
-    document.addEventListener('keypress', this.handleKeyDown)
-    let audioElement = document.getElementById(this.props.sound.id)
-    // audioElement.crossOrigin = "anonymous"
-    let mediaElementSource = this.props.context.createMediaElementSource(audioElement)
-    mediaElementSource.connect(this.props.context.destination)
-    mediaElementSource.connect(this.props.analyser)
+    if (this.props.sound) {
+      document.addEventListener('keypress', this.handleKeyDown)
+      let audioElement = document.getElementById(this.props.sound.id)
+      // audioElement.crossOrigin = "anonymous"
+      let mediaElementSource = this.props.context.createMediaElementSource(audioElement)
+      mediaElementSource.connect(this.props.context.destination)
+      mediaElementSource.connect(this.props.analyser)
+    }
   }
 
   changeColor = (color) => {
