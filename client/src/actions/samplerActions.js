@@ -57,30 +57,16 @@ export function addNewSoundkit(url, submitMethod, formData, history) {
         body: formData
     })
     .then(response => response.json())
-    // we need to wait for the fetch request to complete because were getting a url from the server
     .then(json => dispatch({ type: 'ADD_NEW_SOUNDKIT', payload: json}))
     .then(history.push('/'))
   };
 }
 
 export function editSoundkit(url, submitMethod, formData, history) {
-  // debugger
   return (dispatch) => {
     dispatch({ type: 'EDITING_SOUNDKIT' });
     return axiosClient[submitMethod](url, formData, {
-      // make this dispatch to redux
-      // onUploadProgress: progressEvent => {
-      //   let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
-      //   // this.setState({
-      //   //   submitFormProgress: percentage
-      //   // });
-      // }
     })
-    // .then(response => {
-    //   this.setState({
-    //     didFormSubmissionComplete: true
-    //   });
-    //   this.props.history.push('/');
     .then(json => dispatch({ type: 'EDIT_SOUNDKIT', payload: json}))
     .then(history.push('/'))
   }
