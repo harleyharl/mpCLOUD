@@ -9,9 +9,7 @@ class SoundkitForm extends Component {
 
   state = {
     selectedSoundkitSoundFiles: [],
-    submitFormProgress: 0,
     isSubmittingForm: false,
-    didFormSubmissionComplete: false,
     soundkit: {
       id: this.props.match.params.id,
       name: '',
@@ -117,29 +115,12 @@ class SoundkitForm extends Component {
   }
 
   submitForm() {
-    // debugger
-    let submitMethod = this.state.soundkit.id ? 'patch' : 'post'; //checks whether we are editing record or creating new one
+    let submitMethod = this.state.soundkit.id ? 'patch' : 'post';
     let url = this.state.soundkit.id
       ? `/soundkits/${this.state.soundkit.id}.json`
       : 'api/soundkits.json';
     let formData = this.buildFormData()
     let history = this.props.history
-
-    // axiosClient[submitMethod](url, this.buildFormData(), {
-    //   onUploadProgress: progressEvent => {
-    //     let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
-    //     this.setState({
-    //       submitFormProgress: percentage
-    //     });
-    //   }
-    // })
-    // .then(response => {
-    //   dispatch({type: "EDITED_SOUNDKIT", payload: response.json()})
-    //   this.setState({
-    //     didFormSubmissionComplete: true
-    //   });
-    //   this.props.history.push('/');
-    // })
 
     if (submitMethod === 'post' || submitMethod === 'POST' ) {
       this.props.addNewSoundkit(url, submitMethod, formData, history)
@@ -238,28 +219,6 @@ class SoundkitForm extends Component {
       <ul className="selected-sounds">
         {fileDOMs}
       </ul>
-    );
-  }
-
-  renderUploadFormProgress() {
-    if (this.state.isSubmittingForm === false) {
-      return null;
-    }
-    return (
-      <div className="progress">
-        <div
-          className={
-            'progress-bar progress-bar-info progress-bar-striped' +
-            (this.state.submitFormProgress < 100 ? 'active' : '')
-          }
-          role="progressbar"
-          aria-valuenow={this.state.submitFormProgress}
-          areaValuemin="0"
-          areaValuemax="100"
-          style={{ width: this.state.submitFormProgress + '%' }}>
-          {this.state.submitFormProgress}% Complete
-        </div>
-      </div>
     );
   }
 
