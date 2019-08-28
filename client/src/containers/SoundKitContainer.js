@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setCurrentSoundkit, removeSoundkit  } from '../actions/samplerActions'
+import { setCurrentSoundkit, removeSoundkit, clearCurrentSoundkit  } from '../actions/samplerActions'
 import Button from 'react-bootstrap/Button'
 import './SoundkitContainer.css'
 import Soundkit from './Soundkit.js'
@@ -31,7 +31,7 @@ class SoundKitContainer extends Component {
     } else {
       return this.props.soundKits.map(soundkit => {
         return (
-          <Soundkit id={soundkit.id} soundkit={soundkit} setCurrentSoundkit={this.props.setCurrentSoundkit} history={this.props.history} removeSoundkit={this.props.removeSoundkit}/>
+          <Soundkit id={soundkit.id} soundkit={soundkit} clearCurrentSoundkit={this.props.clearCurrentSoundkit} setCurrentSoundkit={this.props.setCurrentSoundkit} history={this.props.history} removeSoundkit={this.props.removeSoundkit}/>
         );
       });
     }
@@ -56,4 +56,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { setCurrentSoundkit, removeSoundkit })(SoundKitContainer);
+export default connect(mapStateToProps, { setCurrentSoundkit, removeSoundkit, clearCurrentSoundkit })(SoundKitContainer);
