@@ -23,16 +23,6 @@ class CommentBox extends Component {
       });
   }
 
-  onAddItem = () => {
-  this.setState(state => {
-    const list = state.list.concat(state.value);
-    return {
-      list,
-      value: '',
-    };
-  });
-};
-
   render() {
     return (
       <div>
