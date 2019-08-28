@@ -38,7 +38,6 @@ export default function soundkitsReducer(state = {
     return {...state, loading: true}
 
     case 'EDIT_SOUNDKIT':
-    debugger
     return {...state, loading: false, soundKits: state.soundKits.map(soundkit => {
         if (soundkit.id === action.payload.data.id) {
           return action.payload.data
