@@ -10,9 +10,9 @@ I wanted to build a cloud-based drum machine to allow people to create and colla
 
 ## Screenshots
 Include logo/demo screenshot etc.
-![Home Page](https://drive.google.com/file/d/1x03xVwEwUPTn41MU9l2e9CHTiMkx4u1p/view?usp=sharing)
-![Upload Page](https://drive.google.com/file/d/1QOsMlixOoKr0h2toCSyl6D4AzbPPezh7/view?usp=sharing)
-![Youtube Walkthrough](https://youtu.be/IoyjeSt3eSY )
+![Home Page](images/MPCloud-sound-playing.png)
+![Upload Page](images/MPCloud-upload-page.png)
+[Youtube Walkthrough](https://youtu.be/IoyjeSt3eSY )
 
 ## Tech/framework used
 
