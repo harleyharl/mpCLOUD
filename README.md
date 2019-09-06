@@ -31,22 +31,25 @@ To get this application running on your local system, simply clone down and from
 
 ## How to use?
 
-![Youtube Walkthrough](https://youtu.be/IoyjeSt3eSY)
+[Youtube Walkthrough](https://youtu.be/IoyjeSt3eSY)
 
 ## Contribute
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/harleyharl/mpCLOUD. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the ![Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/harleyharl/mpCLOUD. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
 
 ## Credits
 
 The inspiration for this project:
-![Akai MPC](https://www.akaipro.com/products/mpc-series)
+[Akai MPC](https://www.akaipro.com/products/mpc-series)
 
 Super helpful blog post by James Huynh:
-![James Huynh](http://jameshuynh.com/rails/react/upload/2017/09/17/how-to-upload-files-using-react-and-rails-like-a-boss/)
+[James Huynh](http://jameshuynh.com/rails/react/upload/2017/09/17/how-to-upload-files-using-react-and-rails-like-a-boss/)
 
 My awesome Flatiron School section lead for React:
-![Annabel Wilmerding](https://github.com/Awilmerding1)
+[Annabel Wilmerding](https://github.com/Awilmerding1)
+
+And Flatiron School:
+[Flatiron School](https://flatironschool.com/)
 
 ## License
 This Application is available as open source under the terms of the ![MIT License](https://opensource.org/licenses/MIT).
