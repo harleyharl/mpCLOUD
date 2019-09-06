@@ -34,12 +34,6 @@ class Soundkit extends Component {
         <li value={this.props.id} >
           <div className="align-center"><p>{this.props.soundkit.name}</p></div>
           <div className="buttons-container">
-          <div className="button-container">
-            <Button variant="outline-primary" onClick={e => this.handleUpvote()} ><p>Like</p></Button>
-            <div>
-              {this.state.voteCount}
-            </div>
-          </div>
             <div className="button-container">
               <Button variant="outline-primary" onClick={e => this.handleLoad(this.props.id)} ><p>Load</p></Button>
             </div>
