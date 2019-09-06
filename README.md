@@ -1,4 +1,7 @@
 ## mpCLOUD
+
+![Audio Equipment](images/drum-machine-header.png)
+
 An in-browser music production and performance application that allows users to upload and edit their own sound-sets.
 
 ## Motivation
