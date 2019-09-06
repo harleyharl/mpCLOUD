@@ -1,6 +1,6 @@
 ## mpCLOUD
 
-![Audio Equipment](images/drum-machine-header.png)
+![Audio Equipment](images/Custom_Akai_MPC1000_Porsche_Yellow.jpg)
 
 An in-browser music production and performance application that allows users to upload and edit their own sound-sets.
 
