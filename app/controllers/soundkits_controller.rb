@@ -57,7 +57,6 @@ class SoundkitsController < ApplicationController
   end
 
   def soundkit_params
-    # binding.pry
     params.require(:soundkit).permit([:name, :description, sounds_attributes: %I[id name sound_file _destroy]])
   end
 
