@@ -9,10 +9,10 @@ Unfortunately these are expensive pieces of equipment, making them out of reach 
 I wanted to build a cloud-based drum machine to allow people to create and collaborate on music with everyday computers, smartphones and tablets - hence the name MPCloud (Music Production Cloud).
 
 ## Screenshots
-Include logo/demo screenshot etc.
+
 ![Home Page](images/MPCloud-sound-playing.png)
+
 ![Upload Page](images/MPCloud-upload-page.png)
-[Youtube Walkthrough](https://youtu.be/IoyjeSt3eSY )
 
 ## Tech/framework used
 
@@ -28,7 +28,7 @@ To get this application running on your local system, simply clone down and from
 
 ## How to use?
 
-![Youtube Walkthrough](https://youtu.be/IoyjeSt3eSY )
+![Youtube Walkthrough](https://youtu.be/IoyjeSt3eSY)
 
 ## Contribute
 
