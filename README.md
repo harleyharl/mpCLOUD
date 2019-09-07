@@ -7,7 +7,7 @@ An in-browser music production and performance application that allows users to 
 ## Motivation
 For songwriters, producers and beat-makers, there are thousands of tools (both hardware and software) we use to create, perform and edit music with. My favorites are mostly in the the sample-based drum machine category. Within this category, a few pieces stand out - Akai's MPC, Ableton's Push and Native Instruments’ Maschine. Some work in tandem with software run on a computer, and others are standalone music production centers.
 
-Unfortunately these are expensive pieces of equipment, making them out of reach for many potential users. They can also be heavy and cumbersome to cart around and set up. Also, despite the fact we live in the era of the Internet of Things, these devices are also largely isolated from the web and therefore loading sounds into these devices is slow, and collaboration can be difficult.
+These are expensive pieces of equipment, making them out of reach for many potential users. They can also be heavy and cumbersome to cart around and set up. Also, despite the fact we live in the era of the Internet of Things, these devices are also largely isolated from the web and therefore loading sounds into these devices is slow, and collaboration can be complicated.
 
 I wanted to build a cloud-based drum machine to allow people to create and collaborate on music with everyday computers, smartphones and tablets - hence the name MPCloud (Music Production Cloud).
 
@@ -39,19 +39,15 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/harley
 
 ## Credits
 
-The inspiration for this project:
-[Akai MPC](https://www.akaipro.com/products/mpc-series)
+The inspiration for this project - [Akai MPC](https://www.akaipro.com/products/mpc-series)
 
-Super helpful blog post by James Huynh:
-[James Huynh](http://jameshuynh.com/rails/react/upload/2017/09/17/how-to-upload-files-using-react-and-rails-like-a-boss/)
+How to upload files using React and Rails Like A Boss by James Huyn - [James Huynh](http://jameshuynh.com/rails/react/upload/2017/09/17/how-to-upload-files-using-react-and-rails-like-a-boss/)
 
-My awesome Flatiron School section lead for React:
-[Annabel Wilmerding](https://github.com/Awilmerding1)
+My Flatiron School section lead [Annabel Wilmerding](https://github.com/Awilmerding1)
 
-And Flatiron School:
-[Flatiron School](https://flatironschool.com/)
+And [Flatiron School](https://flatironschool.com/)
 
 ## License
-This Application is available as open source under the terms of the ![MIT License](https://opensource.org/licenses/MIT).
+This Application is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 MIT © Harley Rayner
