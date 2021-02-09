@@ -11,7 +11,7 @@ class Pad extends Component {
 
   componentDidMount(){
     // debugger
-    if (this.props.sound) {
+    if (this.props.sound && document.getElementById(this.props.sound.id)) {
       document.addEventListener('keypress', this.handleKeyDown)
       let audioElement = document.getElementById(this.props.sound.id)
       // audioElement.crossOrigin = "anonymous"
