@@ -5,7 +5,18 @@ import Container from 'react-bootstrap/Container'
 
 class Pads extends Component {
 
-  renderPads = () => this.props.sounds.map((sound, index) => <Pad analyser={this.props.analyser} context={this.props.context} index={index} sound={sound} key={sound.id} url={sound.url} name={sound.name} letter={(this.assignLetter(index))} />)
+  constructor(props) {
+    super(props);
+    this.renderPads = this.renderPads.bind(this);
+  }
+
+  renderPads(){
+    return(
+      this.props.sounds.map((sound, index) =>
+          <Pad analyser={this.props.analyser} context={this.props.context} index={index} sound={sound} key={sound.id} url={sound.url} name={sound.name} letter={(this.assignLetter(index))} />
+      )
+    )
+  }
 
   assignLetter = (index) => {
     if (index === 0) {
