@@ -25,7 +25,6 @@ export function setCurrentSoundkit(soundkit) {
 }
 
 export function removeSoundkit(soundkitId, data={}) {
-  debugger
   return (dispatch) => {
     return fetch(`/api/soundkits/${soundkitId}`, {
         method: 'DELETE',
@@ -62,12 +61,13 @@ export function addNewSoundkit(url, submitMethod, formData, history) {
   };
 }
 
-export function editSoundkit(url, submitMethod, formData, history) {
+export function editSoundkit(url, submitMethod, formData, history, soundkitId) {
   return (dispatch) => {
     dispatch({ type: 'EDITING_SOUNDKIT' });
     return axiosClient[submitMethod](url, formData, {
     })
     .then(json => dispatch({ type: 'EDIT_SOUNDKIT', payload: json}))
+    .then(nothing => dispatch({type: 'FINISHED_LOADING'}))
     .then(history.push('/'))
   }
 }
