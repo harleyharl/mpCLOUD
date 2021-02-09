@@ -125,7 +125,7 @@ class SoundkitForm extends Component {
     if (submitMethod === 'post' || submitMethod === 'POST' ) {
       this.props.addNewSoundkit(url, submitMethod, formData, history)
     } else if (submitMethod === 'patch' || submitMethod === 'PATCH'){
-      this.props.editSoundkit(url, submitMethod, formData, history)
+      this.props.editSoundkit(url, submitMethod, formData, history, this.state.soundkit.id)
     }
   }
 
