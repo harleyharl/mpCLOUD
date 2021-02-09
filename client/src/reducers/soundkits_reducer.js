@@ -38,14 +38,17 @@ export default function soundkitsReducer(state = {
     return {...state, loading: true}
 
     case 'EDIT_SOUNDKIT':
-    return {...state, loading: false, soundKits: state.soundKits.map(soundkit => {
+    return {...state, soundKits: state.soundKits.map((soundkit, index) =>{
         if (soundkit.id === action.payload.data.id) {
-          return action.payload.data
+          return Object.assign(state.soundKits[index],action.payload.data);
         } else {
           return soundkit
         }
       })
     }
+
+    case 'FINISHED_LOADING':
+    return {...state, loading: false}
 
   default:
     return state;
