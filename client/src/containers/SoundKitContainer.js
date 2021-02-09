@@ -17,7 +17,6 @@ class SoundKitContainer extends Component {
   }
 
   renderTableBody() {
-    debugger
     if (this.props.loading === true) {
       return (<div className="align-center">
       <div className="loader">
