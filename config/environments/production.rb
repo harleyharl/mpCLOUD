@@ -31,7 +31,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
 
-  #use config.active_storage.service = :google_dev if i want to deploy on google cloud 
+  #use config.active_storage.service = :google_dev if i want to deploy on google cloud
   config.active_storage.service = :google
 
   # Mount Action Cable outside main process or domain
@@ -84,4 +84,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # pre-compiles assets
+  config.assets.compile = true
+  config.serve_static_assests = true
+
 end
