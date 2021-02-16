@@ -14,6 +14,20 @@ amazon:
   region: us-east-2
   bucket: mpcloud
 
+#Possibly won't work. make sure credentials path is right or refer back to https://medium.com/how-i-get-it/rails-react-js-heroku-deployment-43d7469e122e for details
+google:
+     service: GCS
+     project: mpCLOUD-API
+     credentials: <%= Rails.root.join("config/secrets/mpCLOUD-API.json") %>
+     bucket: mpcloud
+
+#Possibly
+google_dev:
+     service: GCS
+     project: mpCLOUD-API
+     credentials: <%= Rails.root.join("config/secrets/mpCLOUD-API.json") %>
+     bucket: mpcloud
+
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS
