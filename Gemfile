@@ -16,6 +16,8 @@ gem 'rails', '~> 5.2.3'
 #Changing to PostgreSQL
 gem "pg", '1.2.3'
 
+gem "google-cloud-storage", "~> 1.8", require: false
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
