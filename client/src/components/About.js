@@ -22,7 +22,6 @@ class About extends React.Component {
               To edit the name, description and sounds in any soundkit, click on the "edit" button alongside the soundkit and follow the prompts.
               </p>
           </div>
-        <CommentBox/>
       </div>
     );
   }
