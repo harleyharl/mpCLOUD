@@ -166,6 +166,7 @@ GEM
 
 PLATFORMS
   universal-darwin-18
+  x86_64-darwin-20
 
 DEPENDENCIES
   active_model_serializers
@@ -184,6 +185,9 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   tzinfo-data
+
+RUBY VERSION
+   ruby 2.6.6p146
 
 BUNDLED WITH
    2.2.9
