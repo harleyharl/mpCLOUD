@@ -3,7 +3,7 @@ import axiosClient from '../axiosClient';
 export function fetchSoundkits() {
   return (dispatch) => {
     dispatch({ type: 'LOADING_SOUNDKITS' });
-    return fetch('/api/soundkits')
+    return fetch('/soundkits')
       .then(response => response.json())
       .then(json => dispatch({ type: 'FETCH_SOUNDKITS', payload: json}));
   };
@@ -12,7 +12,7 @@ export function fetchSoundkits() {
 export function fetchSounds(soundkit_id) {
   return (dispatch) => {
     dispatch({ type: 'LOADING_SOUNDS' });
-    return fetch(`/api/soundkits/${soundkit_id}`)
+    return fetch(`/soundkits/${soundkit_id}`)
       .then(response => response.json())
       .then(json => dispatch({ type: 'FETCH_SOUNDS', payload: json}));
   };
@@ -26,7 +26,7 @@ export function setCurrentSoundkit(soundkit) {
 
 export function removeSoundkit(soundkitId, data={}) {
   return (dispatch) => {
-    return fetch(`/api/soundkits/${soundkitId}`, {
+    return fetch(`/soundkits/${soundkitId}`, {
         method: 'DELETE',
         body: JSON.stringify(data),
     })
