@@ -41,6 +41,7 @@ gem 'pry'
 
 gem 'hirb'
 
+gem 'dotenv-rails', '~> 2.7'
 
 gem "aws-sdk-s3", require: false
 # Use ActiveStorage variant
