@@ -15,17 +15,18 @@ amazon:
   bucket: mpcloud
 
 #Possibly won't work. make sure credentials path is right or refer back to https://medium.com/how-i-get-it/rails-react-js-heroku-deployment-43d7469e122e for details
+#credentials could point to <%= Rails.application.credentials.gcskey.as_json %> ?
 google:
      service: GCS
      project: mpCLOUD-API
-     credentials: <%= Rails.application.credentials.gcskey.as_json %>
+     credentials: <%= Rails.root.join("config/secrets/mpCLOUD-API.json") %>
      bucket: mpcloud
 
 #Possibly
 google_dev:
      service: GCS
      project: mpCLOUD-API
-     credentials: <%= Rails.application.credentials.gcskey.as_json %>
+     credentials: <%= Rails.root.join("config/secrets/mpCLOUD-API.json") %>
      bucket: mpcloud
 
 # Remember not to checkin your GCS keyfile to a repository
