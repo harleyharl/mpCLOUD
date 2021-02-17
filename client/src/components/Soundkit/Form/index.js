@@ -118,7 +118,7 @@ class SoundkitForm extends Component {
     let submitMethod = this.state.soundkit.id ? 'patch' : 'post';
     let url = this.state.soundkit.id
       ? `/soundkits/${this.state.soundkit.id}.json`
-      : '/soundkits.json';
+      : 'api/soundkits.json';
     let formData = this.buildFormData()
     let history = this.props.history
 
