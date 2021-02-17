@@ -18,7 +18,7 @@ amazon:
 google:
      service: GCS
      project: mpCLOUD-API
-     credentials: <%= Rails.root.join("config/secrets/mpCLOUD-API.json") %>
+     credentials: ENV['GOOGLE_APPLICATION_CREDENTIALS']
      bucket: mpcloud
 
 #Possibly
