@@ -28,3 +28,6 @@
 
 # Where the google cloud public/private key pair is
 config/secrets/*
+
+#dont allow and .env to be tracked by git
+.env
