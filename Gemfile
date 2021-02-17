@@ -13,8 +13,16 @@ gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 
-#Changing to PostgreSQL
+# Changing to PostgreSQL
 gem "pg", '1.2.3'
+
+# group :development do
+#     gem ‘sqlite3’
+# end
+#
+# group :production do
+#     gem "pg", '1.2.3'
+# end
 
 gem "google-cloud-storage", "~> 1.8", require: false
 
